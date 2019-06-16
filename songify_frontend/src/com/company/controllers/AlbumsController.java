@@ -1,36 +1,17 @@
 package com.company.controllers;
 
 import com.company.Album;
-import com.company.Artist;
-import com.company.DbConnection;
-import com.company.DbConnectionFactory;
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public class AlbumsController {
-    private final static DbConnection connection = DbConnectionFactory.getDbConnection();
-
+/*
     public static List<Album> index() throws SQLException {
-        String sql = "SELECT * FROM Album";
 
-        Statement statement = connection.getConn().createStatement();
-        ResultSet result = statement.executeQuery(sql);
-
-        int count = 0;
-
-        List<Album> albums = new ArrayList<>();
-
-        while (result.next()){
-            String title = result.getString("title");
-            int artistId = result.getInt("artistId");
-
-            albums.add(new Album(result.getInt("Id"), title, ArtistsController.find(artistId)));
-        }
-        return albums;
     }
-
+*/
+/*
     public static Album create(String title, Artist artist) throws SQLException{
         PreparedStatement statement = connection.getConn()
                 .prepareStatement("INSERT INTO Album (title, artistId) VALUES(?, ?)");
@@ -135,4 +116,5 @@ public class AlbumsController {
         }
         return albums.get(0);
     }
+    */
 }

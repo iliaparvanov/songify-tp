@@ -3,7 +3,7 @@ package com.company;
 import javafx.beans.property.SimpleStringProperty;
 
 public class Artist {
-    public final int id;
+    private int id;
     private SimpleStringProperty name;
 
     public Artist(int id, String name) {
@@ -19,7 +19,13 @@ public class Artist {
         this.name = new SimpleStringProperty(name);
     }
 
-    private final DbConnection connection = DbConnectionFactory.getDbConnection();
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     @Override
     public String toString() {

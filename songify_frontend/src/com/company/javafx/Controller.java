@@ -89,6 +89,7 @@ public class Controller implements Initializable {
             e.printStackTrace();
         }
         artistNameColumn.setCellValueFactory(new PropertyValueFactory<Artist, String>("name"));
+        /*
         artistTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         artistTableView.setEditable(true);
         artistNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -114,9 +115,9 @@ public class Controller implements Initializable {
         songLengthTensOfSecondsChoiceBox.setItems(FXCollections.observableList(IntStream.rangeClosed(0, 9).boxed().collect(Collectors.toList())));
         songLengthSecondsChoiceBox.setItems(FXCollections.observableList(IntStream.rangeClosed(0, 9).boxed().collect(Collectors.toList())));
         songTitleColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-
+        */
     }
-
+/*
 
     public void changeArtistNameCellEvent(TableColumn.CellEditEvent editted) throws SQLException {
         Artist selectedArtist = artistTableView.getSelectionModel().getSelectedItem();
@@ -299,19 +300,21 @@ public class Controller implements Initializable {
             genreTableView.getItems().add(genre);
         }
     }
-
+/*
     public void resetAndSeedDb() throws SQLException {
         TableInitializer.dropAllTables();
         TableInitializer.createAllTables();
         TableInitializer.seedDb();
         fetchAllFromDB();
     }
-
+*/
     private void fetchAllFromDB() throws SQLException {
         artistTableView.setItems(FXCollections.observableList(ArtistsController.index()));
+        /*
         songTableView.setItems(FXCollections.observableList(SongsController.index()));
         albumTableView.setItems(FXCollections.observableList(AlbumsController.index()));
         genreTableView.setItems(FXCollections.observableList(GenresController.index()));
+        */
     }
 }
 

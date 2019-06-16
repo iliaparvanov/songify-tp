@@ -1,6 +1,9 @@
 package com.company.controllers;
 
 import com.company.*;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,9 +13,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ArtistsController {
+    private final static SongifyClient client = new ClientConnection().getClient();
+    private static List<Artist> currentArtists = new ArrayList<>();
 
-    private final static DbConnection connection = DbConnectionFactory.getDbConnection();
+    public static List<Artist> index() throws SQLException {
+        Call<List<Artist>> call =
+                client.allArtists();
 
+        call.enqueue(new Callback<>() {
+            @Override
+            public void onResponse(Call<List<Artist>> call, Response<List<Artist>> response) {
+                currentArtists = response.body();
+            }
+
+            @Override
+            public void onFailure(Call<List<Artist>> call, Throwable t) {
+                throw new NetworkFailureException();
+            }
+        });
+
+        return currentArtists;
+    }
+/*
     public static Artist create(String name) throws SQLException {
         String sql = "INSERT INTO Artist(Name) VALUES (?)";
 
@@ -30,25 +52,6 @@ public class ArtistsController {
             id = rs.getInt(1);
         }
         return new Artist(id, name);
-    }
-
-
-
-
-
-    public static List<Artist> index() throws SQLException {
-        String sql = "SELECT * FROM Artist";
-
-        Statement statement = connection.getConn().createStatement();
-        ResultSet result = statement.executeQuery(sql);
-
-        List<Artist> artists = new ArrayList<>();
-        while (result.next()) {
-            artists.add(new Artist(result.getInt("Id"), result.getString("Name")));
-//            System.out.println("Name of result: " + result.getString("Name"));
-        }
-
-        return artists;
     }
 
     public static void update(Artist artist) throws SQLException {
@@ -132,4 +135,5 @@ public class ArtistsController {
         }
         return artists;
     }
+*/
 }

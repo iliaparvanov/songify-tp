@@ -1,20 +1,7 @@
 package com.company.controllers;
 
-import com.company.DbConnection;
-import com.company.DbConnectionFactory;
-import com.company.Genre;
-
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
-
 public class GenresController {
-
-    private final static DbConnection connection = DbConnectionFactory.getDbConnection();
-
+/*
     public static List<Genre> index() throws SQLException {
         String sql = "SELECT * FROM Genre";
 
@@ -111,4 +98,5 @@ public class GenresController {
 
         return genre;
     }
+    */
 }

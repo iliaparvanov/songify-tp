@@ -3,7 +3,15 @@ package com.company;
 import javafx.beans.property.SimpleStringProperty;
 
 public class Album {
-    public final int id;
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    private int id;
 
     public String getTitle() {
         return title.get();

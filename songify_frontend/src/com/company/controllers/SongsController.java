@@ -8,11 +8,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class SongsController {
-
-    private final static DbConnection connection = DbConnectionFactory.getDbConnection();
+/*
 
     public static List<Song> index() throws SQLException {
         String sql = "SELECT * FROM Song";
@@ -206,4 +204,5 @@ public class SongsController {
         }
         return songs;
     }
+    */
 }
