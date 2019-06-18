@@ -8,4 +8,5 @@ module songify {
 
     opens com.company.javafx;
     opens com.company;
+//    opens javafx.beans.property;
 }

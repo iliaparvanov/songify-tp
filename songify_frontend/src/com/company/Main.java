@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-
+/*
     public static <E> int options(List<E> options) {
         int i=0;
         for (E e : options) {
@@ -359,4 +359,5 @@ public class Main {
             System.out.print("Choose function:\ncreate\nfind\nindex\nexit\n");
         }
     }
+    */
 }

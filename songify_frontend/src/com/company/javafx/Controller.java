@@ -117,126 +117,126 @@ public class Controller implements Initializable {
         songTitleColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         */
     }
-/*
+
 
     public void changeArtistNameCellEvent(TableColumn.CellEditEvent editted) throws SQLException {
-        Artist selectedArtist = artistTableView.getSelectionModel().getSelectedItem();
-        selectedArtist.setName(editted.getNewValue().toString());
-        ArtistsController.update(selectedArtist);
-        fetchAllFromDB();
+//        Artist selectedArtist = artistTableView.getSelectionModel().getSelectedItem();
+//        selectedArtist.setName(editted.getNewValue().toString());
+//        ArtistsController.update(selectedArtist);
+//        fetchAllFromDB();
     }
 
     public void changeGenreNameCellEvent(TableColumn.CellEditEvent editted) throws SQLException {
-        Genre selectedGenre = genreTableView.getSelectionModel().getSelectedItem();
-        selectedGenre.setName(editted.getNewValue().toString());
-        GenresController.update(selectedGenre);
-        fetchAllFromDB();
+//        Genre selectedGenre = genreTableView.getSelectionModel().getSelectedItem();
+//        selectedGenre.setName(editted.getNewValue().toString());
+//        GenresController.update(selectedGenre);
+//        fetchAllFromDB();
     }
 
     public void changeAlbumTitleCellEvent(TableColumn.CellEditEvent editted) throws SQLException {
-        Album selectedAlbum = albumTableView.getSelectionModel().getSelectedItem();
-        selectedAlbum.setTitle(editted.getNewValue().toString());
-        AlbumsController.update(selectedAlbum);
-        fetchAllFromDB();
+//        Album selectedAlbum = albumTableView.getSelectionModel().getSelectedItem();
+//        selectedAlbum.setTitle(editted.getNewValue().toString());
+//        AlbumsController.update(selectedAlbum);
+//        fetchAllFromDB();
     }
 
     public void changeSongTitleCellEvent(TableColumn.CellEditEvent editted) throws SQLException {
-        Song selectedSong = songTableView.getSelectionModel().getSelectedItem();
-        selectedSong.setTitle(editted.getNewValue().toString());
-        SongsController.update(selectedSong);
-        fetchAllFromDB();
+//        Song selectedSong = songTableView.getSelectionModel().getSelectedItem();
+//        selectedSong.setTitle(editted.getNewValue().toString());
+//        SongsController.update(selectedSong);
+//        fetchAllFromDB();
     }
 
     public void changeSongLength() throws SQLException {
-        Song selectedSong = songTableView.getSelectionModel().getSelectedItem();
-        if (songLengthMinutesChoiceBox.getValue() != null
-                && songLengthTensOfSecondsChoiceBox.getValue() != null
-                && songLengthSecondsChoiceBox.getValue() != null) {
-            String length = songLengthMinutesChoiceBox.getValue().toString() +
-                    ":" +
-                    songLengthTensOfSecondsChoiceBox.getValue().toString() +
-                    songLengthSecondsChoiceBox.getValue().toString();
-            selectedSong.setLength(length);
-            SongsController.update(selectedSong);
-            fetchAllFromDB();
-        }
+//        Song selectedSong = songTableView.getSelectionModel().getSelectedItem();
+//        if (songLengthMinutesChoiceBox.getValue() != null
+//                && songLengthTensOfSecondsChoiceBox.getValue() != null
+//                && songLengthSecondsChoiceBox.getValue() != null) {
+//            String length = songLengthMinutesChoiceBox.getValue().toString() +
+//                    ":" +
+//                    songLengthTensOfSecondsChoiceBox.getValue().toString() +
+//                    songLengthSecondsChoiceBox.getValue().toString();
+//            selectedSong.setLength(length);
+//            SongsController.update(selectedSong);
+//            fetchAllFromDB();
+//        }
     }
 
     public void changeSongReleaseDate() throws SQLException {
-        Song selectedSong = songTableView.getSelectionModel().getSelectedItem();
-        if (songReleaseDateDatePicker.getValue() != null
-        ) {
-            selectedSong.setReleaseDate(songReleaseDateDatePicker.getValue().toString());
-            SongsController.update(selectedSong);
-            fetchAllFromDB();
-        }
+//        Song selectedSong = songTableView.getSelectionModel().getSelectedItem();
+//        if (songReleaseDateDatePicker.getValue() != null
+//        ) {
+//            selectedSong.setReleaseDate(songReleaseDateDatePicker.getValue().toString());
+//            SongsController.update(selectedSong);
+//            fetchAllFromDB();
+//        }
     }
 
     public void changeSongGenre() throws SQLException {
-        if (songTableView.getSelectionModel().getSelectedItems().size() > 0 && genreTableView.getSelectionModel().getSelectedItems().size() == 1) {
-            for (Song s : songTableView.getSelectionModel().getSelectedItems()) {
-                s.setGenre(genreTableView.getSelectionModel().getSelectedItem());
-                SongsController.update(s);
-            }
-            fetchAllFromDB();
-        }
+//        if (songTableView.getSelectionModel().getSelectedItems().size() > 0 && genreTableView.getSelectionModel().getSelectedItems().size() == 1) {
+//            for (Song s : songTableView.getSelectionModel().getSelectedItems()) {
+//                s.setGenre(genreTableView.getSelectionModel().getSelectedItem());
+//                SongsController.update(s);
+//            }
+//            fetchAllFromDB();
+//        }
     }
 
     public void changeSongAlbum() throws SQLException {
-        if (songTableView.getSelectionModel().getSelectedItems().size() > 0 && albumTableView.getSelectionModel().getSelectedItems().size() == 1) {
-            for (Song s : songTableView.getSelectionModel().getSelectedItems()) {
-                s.setAlbum(albumTableView.getSelectionModel().getSelectedItem());
-                SongsController.update(s);
-            }
-            fetchAllFromDB();
-        }
+//        if (songTableView.getSelectionModel().getSelectedItems().size() > 0 && albumTableView.getSelectionModel().getSelectedItems().size() == 1) {
+//            for (Song s : songTableView.getSelectionModel().getSelectedItems()) {
+//                s.setAlbum(albumTableView.getSelectionModel().getSelectedItem());
+//                SongsController.update(s);
+//            }
+//            fetchAllFromDB();
+//        }
     }
 
     public void changeSongArtists() throws SQLException {
-        if (songTableView.getSelectionModel().getSelectedItems().size() > 0 && artistTableView.getSelectionModel().getSelectedItems().size() > 0) {
-            for (Song s : songTableView.getSelectionModel().getSelectedItems()) {
-                s.setArtists(artistTableView.getSelectionModel().getSelectedItems());
-                SongsController.update(s);
-            }
-            fetchAllFromDB();
-        }
+//        if (songTableView.getSelectionModel().getSelectedItems().size() > 0 && artistTableView.getSelectionModel().getSelectedItems().size() > 0) {
+//            for (Song s : songTableView.getSelectionModel().getSelectedItems()) {
+//                s.setArtists(artistTableView.getSelectionModel().getSelectedItems());
+//                SongsController.update(s);
+//            }
+//            fetchAllFromDB();
+//        }
     }
 
     public void deleteArtists() throws SQLException {
-        ObservableList<Artist> selectedArtists;
-        selectedArtists = artistTableView.getSelectionModel().getSelectedItems();
-        for (Artist a : selectedArtists) {
-            ArtistsController.delete(a.id);
-        }
-        try {
-            fetchAllFromDB();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+//        ObservableList<Artist> selectedArtists;
+//        selectedArtists = artistTableView.getSelectionModel().getSelectedItems();
+//        for (Artist a : selectedArtists) {
+//            ArtistsController.delete(a.id);
+//        }
+//        try {
+//            fetchAllFromDB();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
     }
 
     public void createArtist() throws SQLException {
-        if (!artistNameTextField.getText().toString().equals("")) {
-            Artist artist = ArtistsController.create(artistNameTextField.getText().toString());
-            artistTableView.getItems().add(artist);
-        }
+//        if (!artistNameTextField.getText().toString().equals("")) {
+//            Artist artist = ArtistsController.create(artistNameTextField.getText().toString());
+//            artistTableView.getItems().add(artist);
+//        }
     }
 
     public void deleteSongs() throws SQLException {
-        ObservableList<Song> selectedSongs;
-        selectedSongs = songTableView.getSelectionModel().getSelectedItems();
-        for (Song s : selectedSongs) {
-            SongsController.delete(s.id);
-        }
-        try {
-            fetchAllFromDB();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+//        ObservableList<Song> selectedSongs;
+//        selectedSongs = songTableView.getSelectionModel().getSelectedItems();
+//        for (Song s : selectedSongs) {
+//            SongsController.delete(s.id);
+//        }
+//        try {
+//            fetchAllFromDB();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
     }
 
     public void createSong() throws SQLException {
-
+/*
         if (!songTitleTextField.getText().toString().equals("")
             && songReleaseDateDatePicker.getValue() != null
             && songLengthMinutesChoiceBox.getValue() != null
@@ -258,56 +258,57 @@ public class Controller implements Initializable {
                                                 genreTableView.getSelectionModel().getSelectedItem());
             songTableView.getItems().add(song);
         }
+        */
     }
 
     public void createAlbum() throws SQLException {
-        if (!albumTitleTextField.getText().toString().equals("") && artistTableView.getSelectionModel().getSelectedItems().size() != 0) {
-            Album album = AlbumsController.create(albumTitleTextField.getText().toString(), artistTableView.getSelectionModel().getSelectedItems().get(0));
-            albumTableView.getItems().add(album);
-        }
+//        if (!albumTitleTextField.getText().toString().equals("") && artistTableView.getSelectionModel().getSelectedItems().size() != 0) {
+//            Album album = AlbumsController.create(albumTitleTextField.getText().toString(), artistTableView.getSelectionModel().getSelectedItems().get(0));
+//            albumTableView.getItems().add(album);
+//        }
     }
 
     public void deleteAlbums() throws SQLException {
-        ObservableList<Album> selectedAlbums;
-        selectedAlbums = albumTableView.getSelectionModel().getSelectedItems();
-        for (Album a : selectedAlbums) {
-            AlbumsController.delete(a.id);
-        }
-        try {
-            fetchAllFromDB();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+//        ObservableList<Album> selectedAlbums;
+//        selectedAlbums = albumTableView.getSelectionModel().getSelectedItems();
+//        for (Album a : selectedAlbums) {
+//            AlbumsController.delete(a.id);
+//        }
+//        try {
+//            fetchAllFromDB();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
 
     }
 
     public void deleteGenres() throws SQLException {
-        ObservableList<Genre> selectedGenres;
-        selectedGenres = genreTableView.getSelectionModel().getSelectedItems();
-        for (Genre g : selectedGenres) {
-            GenresController.delete(g.id);
-        }
-        try {
-            fetchAllFromDB();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+//        ObservableList<Genre> selectedGenres;
+//        selectedGenres = genreTableView.getSelectionModel().getSelectedItems();
+//        for (Genre g : selectedGenres) {
+//            GenresController.delete(g.id);
+//        }
+//        try {
+//            fetchAllFromDB();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
     }
 
     public void createGenre() throws SQLException {
-        if (!genreNameTextField.getText().toString().equals("")) {
-            Genre genre = GenresController.create(genreNameTextField.getText().toString());
-            genreTableView.getItems().add(genre);
-        }
+//        if (!genreNameTextField.getText().toString().equals("")) {
+//            Genre genre = GenresController.create(genreNameTextField.getText().toString());
+//            genreTableView.getItems().add(genre);
+//        }
     }
-/*
+
     public void resetAndSeedDb() throws SQLException {
-        TableInitializer.dropAllTables();
-        TableInitializer.createAllTables();
-        TableInitializer.seedDb();
-        fetchAllFromDB();
+//        TableInitializer.dropAllTables();
+//        TableInitializer.createAllTables();
+//        TableInitializer.seedDb();
+//        fetchAllFromDB();
     }
-*/
+
     private void fetchAllFromDB() throws SQLException {
         artistTableView.setItems(FXCollections.observableList(ArtistsController.index()));
         /*

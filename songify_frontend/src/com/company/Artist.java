@@ -4,19 +4,19 @@ import javafx.beans.property.SimpleStringProperty;
 
 public class Artist {
     private int id;
-    private SimpleStringProperty name;
+    private String name;
 
     public Artist(int id, String name) {
         this.id = id;
-        this.name = new SimpleStringProperty(name);
+        this.name = name;
     }
 
     public String getName() {
-        return name.get();
+        return name;
     }
 
     public void setName(String name) {
-        this.name = new SimpleStringProperty(name);
+        this.name = name;
     }
 
     public int getId() {
@@ -29,6 +29,6 @@ public class Artist {
 
     @Override
     public String toString() {
-        return name.get();
+        return name;
     }
 }
