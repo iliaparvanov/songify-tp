@@ -3,13 +3,15 @@ class SongsController < ApplicationController
 	before_action :set_song, only: [:show, :update, :destroy]
 	# GET /todos
   def index
-    @songs = Song.all
+    @songs = current_user.songs
     json_response(@songs)
+    p current_user
   end
 
   # POST /songs
   def create
     @song = Song.create!(song_params)
+    current_user.songs << @song
     json_response(@song, :created)
   end
 
@@ -34,7 +36,7 @@ class SongsController < ApplicationController
 
   def song_params
     # whitelist params
-    params.permit(:name, :title)
+    params.permit(:title, :length, user: current_user)
   end
 
   def set_song
