@@ -1,7 +1,9 @@
 package com.company.controllers;
 
 import com.company.*;
+import retrofit2.Call;
 
+import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,23 +12,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SongsController {
-/*
 
-    public static List<Song> index() throws SQLException {
-        String sql = "SELECT * FROM Song";
+    private static SongifyClient client = new ClientConnection().getClient();
+    private static List<Song> currentSongs = new ArrayList<>();
+    private static Song currentSong;
 
-        Statement statement = connection.getConn().createStatement();
-        ResultSet result = statement.executeQuery(sql);
-
-        List<Song> songs = new ArrayList<>();
-        while (result.next()){
-            songs.add(new Song(result.getInt("Id"), result.getString(2), result.getString(3), result.getString("length"),
-                    AlbumsController.find(result.getInt("albumId")), ArtistsController.findBySongId(result.getInt("Id")), GenresController.find(result.getInt("genreId"))));
-        }
-
-        return songs;
+    public static void authenticateClient(Authentication auth) {
+        client = new ClientConnection(auth).getClient();
     }
 
+
+    public static List<Song> index() throws IOException {
+        Call<List<Song>> call =
+                client.getAllSongs();
+
+        currentSongs = call.execute().body();
+
+        return currentSongs;
+    }
+/*
     public static Song create(String title, String releaseDate, String length, Album album, List<Artist> artists, Genre genre) throws SQLException {
         //This should happen in a transaction
         connection.getConn().setAutoCommit(false);

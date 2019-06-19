@@ -1,9 +1,6 @@
 package com.company.controllers;
 
-import com.company.Album;
-import com.company.Artist;
-import com.company.ClientConnection;
-import com.company.SongifyClient;
+import com.company.*;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 
@@ -13,9 +10,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AlbumsController {
-    private final static SongifyClient client = new ClientConnection().getClient();
+    private static SongifyClient client = new ClientConnection().getClient();
     private static List<Album> currentAlbums = new ArrayList<>();
     private static Album currentAlbum;
+
+    public static void authenticateClient(Authentication auth) {
+        client = new ClientConnection(auth).getClient();
+    }
 
     public static List<Album> index() throws IOException {
         currentAlbums.clear();
@@ -33,7 +34,7 @@ public class AlbumsController {
     public static Album create(String title, Artist artist) throws IOException {
         Call<Album> call = client.createAlbum(artist.getId(), title);
         currentAlbum = call.execute().body();
-        System.out.println(currentAlbum.getTitle());
+//        System.out.println(currentAlbum.getTitle());
         currentAlbum.setArtist(artist);
         return currentAlbum;
     }

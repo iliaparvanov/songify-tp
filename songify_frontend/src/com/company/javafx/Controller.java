@@ -7,14 +7,21 @@ import com.company.controllers.ArtistsController;
 import com.company.controllers.GenresController;
 import com.company.controllers.SongsController;
 import com.company.db_builder.TableInitializer;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -47,7 +54,7 @@ public class Controller implements Initializable {
     @FXML
     public TableColumn<Song, List<Artist>> songArtistsColumn;
     @FXML
-    public TableColumn<Song, Genre> songGenreColumn;
+    public TableColumn<Song, String> songGenreColumn;
 
     @FXML
     public TableView<Album> albumTableView;
@@ -57,13 +64,6 @@ public class Controller implements Initializable {
     public TableColumn<Album, Artist> albumArtistColumn;
     @FXML
     public TextField albumTitleTextField;
-
-    @FXML
-    public TableView<Genre> genreTableView;
-    @FXML
-    public TableColumn<Genre, String> genreNameColumn;
-    @FXML
-    public TextField genreNameTextField;
 
     //Song creation
     @FXML
@@ -81,11 +81,15 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        try {
-            fetchAllFromDB();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+        Platform.runLater(() -> {
+            authenticateControllers();
+            try {
+                fetchAllFromDB();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
         artistNameColumn.setCellValueFactory(new PropertyValueFactory<Artist, String>("name"));
         artistTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         artistTableView.setEditable(true);
@@ -96,15 +100,15 @@ public class Controller implements Initializable {
         albumTitleColumn.setCellValueFactory(new PropertyValueFactory<Album, String>("title"));
         albumArtistColumn.setCellValueFactory(new PropertyValueFactory<Album, Artist>("artist"));
         albumTitleColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-/*
+
         songTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         songTitleColumn.setCellValueFactory(new PropertyValueFactory<Song, String>("title"));
         songReleaseDateColumn.setCellValueFactory(new PropertyValueFactory<Song, String>("releaseDate"));
         songLengthColumn.setCellValueFactory(new PropertyValueFactory<Song, String>("length"));
         songAlbumColumn.setCellValueFactory(new PropertyValueFactory<Song, Album>("album"));
         songArtistsColumn.setCellValueFactory(new PropertyValueFactory<Song, List<Artist>>("artists"));
-        songGenreColumn.setCellValueFactory(new PropertyValueFactory<Song, Genre>("genre"));
-
+        songGenreColumn.setCellValueFactory(new PropertyValueFactory<Song, String>("genre"));
+/*
         genreNameColumn.setCellValueFactory(new PropertyValueFactory<Genre, String>("name"));
         genreNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
@@ -113,6 +117,24 @@ public class Controller implements Initializable {
         songLengthSecondsChoiceBox.setItems(FXCollections.observableList(IntStream.rangeClosed(0, 9).boxed().collect(Collectors.toList())));
         songTitleColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         */
+    }
+
+    private void authenticateControllers() {
+        System.out.println(auth.getAuth_token());
+        AlbumsController.authenticateClient(auth);
+        ArtistsController.authenticateClient(auth);
+    }
+
+    public void signout(ActionEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("authentication.fxml"));
+        Parent sampleViewParent = fxmlLoader.load();
+
+        Scene sampleViewScene = new Scene(sampleViewParent);
+
+        Stage window = (Stage) (((Node) event.getSource()).getScene().getWindow());
+
+        window.setScene(sampleViewScene);
+        window.show();
     }
 
 
@@ -299,20 +321,11 @@ public class Controller implements Initializable {
 //        }
     }
 
-    public void resetAndSeedDb() throws SQLException {
-//        TableInitializer.dropAllTables();
-//        TableInitializer.createAllTables();
-//        TableInitializer.seedDb();
-//        fetchAllFromDB();
-    }
-
     private void fetchAllFromDB() throws IOException {
         artistTableView.setItems(FXCollections.observableList(ArtistsController.index()));
         albumTableView.setItems(FXCollections.observableList(AlbumsController.index()));
-        /*
         songTableView.setItems(FXCollections.observableList(SongsController.index()));
-        genreTableView.setItems(FXCollections.observableList(GenresController.index()));
-        */
+//        genreTableView.setItems(FXCollections.observableList(GenresController.index()));
     }
 
     public Authentication getAuth() {

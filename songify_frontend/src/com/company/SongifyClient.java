@@ -12,6 +12,33 @@ public interface SongifyClient {
     Call<Authentication> authenticate(@Field("email") String email,
                                       @Field("password") String password);
 
+    @POST("/signup")
+    @FormUrlEncoded
+    Call<Authentication> signup(@Field("email") String email,
+                                      @Field("name") String name,
+                                      @Field("password") String password,
+                                      @Field("password_confirmation") String password_confirmation);
+
+    @GET("/songs")
+    Call<List<Song>> getAllSongs();
+
+    @GET("/songs/{id}")
+    Call<Song> getSong(@Path("id") int id);
+
+    @POST("/songs")
+    @FormUrlEncoded
+    Call<Song> createSong(@Field("title") String title,
+                          @Field("length") String length,
+                          @Field("genre") String genre,
+                          @Field("album") String album,
+                          @Field("artist") String artist);
+
+    @PUT("/songs/{id}")
+    Call<ResponseBody> updateSong(@Path("id") int id, @Body Song song);
+
+    @DELETE("/songs/{id}")
+    Call<ResponseBody> deleteSong(@Path("id") int id);
+
     @GET("/artists")
     Call<List<Artist>> getAllArtists();
 

@@ -20,10 +20,10 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <TextField promptText="Username" />
-                  <TextField promptText="Email" />
-                  <PasswordField promptText="Password" />
-                  <PasswordField promptText="Confirm password" />
+                  <TextField fx:id="signUpNameTextField" promptText="Username" />
+                  <TextField fx:id="signUpEmailTextField" promptText="Email" />
+                  <PasswordField fx:id="signUpPasswordField" promptText="Password" />
+                  <PasswordField fx:id="signUpPasswordConfirmationField" promptText="Confirm password" />
                   <Button mnemonicParsing="false" onAction="#signUpButtonPressed" text="Sign up" />
                </children>
             </VBox>

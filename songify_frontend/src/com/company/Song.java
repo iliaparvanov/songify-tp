@@ -13,20 +13,20 @@ import java.util.stream.Collectors;
 
 public class Song {
     public int id;
-    private SimpleStringProperty title;
-    private SimpleStringProperty releaseDate;
-    private SimpleStringProperty length;
+    private String title;
+    private String releaseDate;
+    private String length;
     private Album album;
-    private ObservableList<Artist> artists;
-    private Genre genre;
+    private Artist artist;
+    private String genre;
 
-    public Song(int id, String title, String releaseDate, String length, Album album, List<Artist> artists, Genre genre) throws SQLException {
+    public Song(int id, String title, String releaseDate, String length, Album album, Artist artist, String genre) throws SQLException {
         this.id = id;
-        this.title = new SimpleStringProperty(title);
-        this.releaseDate = new SimpleStringProperty(releaseDate);
-        this.length = new SimpleStringProperty(length);
+        this.title = title;
+        this.releaseDate = releaseDate;
+        this.length = length;
         this.album = album;
-        this.artists = FXCollections.observableList(artists);
+        this.artist = artist;
         this.genre = genre;
     }
 
@@ -35,35 +35,35 @@ public class Song {
     }
 
     public String getTitle() {
-        return title.get();
+        return title;
     }
 
     public String getReleaseDate() {
-        return releaseDate.get();
+        return releaseDate;
     }
 
     public String getLength() {
-        return length.get();
+        return length;
     }
 
-    public List<Artist> getArtists() {
-        return artists.stream().collect(Collectors.toList());
+    public Artist getArtist() {
+        return artist;
     }
 
-    public Genre getGenre() {
+    public String getGenre() {
         return genre;
     }
 
     public void setTitle(String title) {
-        this.title = new SimpleStringProperty(title);
+        this.title = title;
     }
 
     public void setReleaseDate(String releaseDate) {
-        this.releaseDate = new SimpleStringProperty(releaseDate);
+        this.releaseDate = releaseDate;
     }
 
     public void setLength(String length) {
-        this.length = new SimpleStringProperty(length);
+        this.length = length;
     }
 
     public void setAlbum(Album album) {
@@ -71,22 +71,20 @@ public class Song {
     }
 
     public void setArtists(List<Artist> artists) {
-        this.artists = FXCollections.observableList(artists);
+        this.artist = artist;
     }
 
-    public void setGenre(Genre genre) {
+    public void setGenre(String genre) {
         this.genre = genre;
     }
 
     @Override
     public String toString() {
         String aStrings = "";
-        for (Artist a : artists) {
-            aStrings = aStrings + artists.toString() + " ";
-        }
+        aStrings += artist.toString();
         String albumString = "";
         if (album != null)
             albumString = album.toString();
-        return  title.get() + ", by " + aStrings + " with length " + this.length.get() + " from album " + albumString;
+        return  title + ", by " + aStrings + " with length " + this.length + " from album " + albumString;
     }
 }

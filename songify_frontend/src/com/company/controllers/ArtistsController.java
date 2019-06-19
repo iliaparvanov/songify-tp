@@ -10,9 +10,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ArtistsController {
-    private final static SongifyClient client = new ClientConnection().getClient();
+    private static SongifyClient client = new ClientConnection().getClient();
     private static List<Artist> currentArtists = new ArrayList<>();
     private static Artist currentArtist;
+
+    public static void authenticateClient(Authentication auth) {
+        client = new ClientConnection(auth).getClient();
+    }
 
     public static List<Artist> index() throws NetworkFailureException, IOException {
         Call<List<Artist>> call =

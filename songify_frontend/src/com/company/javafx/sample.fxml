@@ -24,7 +24,7 @@
   <rowConstraints>
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
@@ -106,20 +106,7 @@
             <Button mnemonicParsing="false" onAction="#deleteAlbums" prefHeight="25.0" text="Delete album" />
          </children>
       </VBox>
-      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-         <children>
-            <Label alignment="CENTER" prefHeight="20.0" prefWidth="195.0" text="Genres" textAlignment="CENTER">
-               <font>
-                  <Font size="14.0" />
-               </font></Label>
-            <TableView fx:id="genreTableView" editable="true" prefHeight="200.0" prefWidth="200.0">
-              <columns>
-                <TableColumn fx:id="genreNameColumn" onEditCommit="#changeGenreNameCellEvent" prefWidth="186.0" text="Name" />
-              </columns>
-            </TableView>
-            <Button mnemonicParsing="false" onAction="#deleteGenres" text="Delete genre" />
-         </children>
-      </VBox>
+      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" GridPane.rowIndex="3">
          <children>
             <Label alignment="CENTER" prefHeight="31.0" prefWidth="166.0" text="Add album (select artist for album from list above)" wrapText="true" />
@@ -131,11 +118,6 @@
          </padding>
       </VBox>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
-         <children>
-            <Label text="Add genre" />
-            <TextField fx:id="genreNameTextField" promptText="Genre name" />
-            <Button mnemonicParsing="false" onAction="#createGenre" text="Create genre" />
-         </children>
          <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </padding>
@@ -161,7 +143,7 @@
             <Button alignment="TOP_CENTER" mnemonicParsing="false" onAction="#createSong" text="Create song" />
          </children>
       </VBox>
-      <Button alignment="CENTER" mnemonicParsing="false" onAction="#resetAndSeedDb" style="-fx-background-color: red;" text="Reset &amp; Seed DB" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="2">
+      <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#signout" prefHeight="38.0" prefWidth="187.0" style="-fx-background-color: red;" text="Sign out" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="2">
          <font>
             <Font size="17.0" />
          </font>
