@@ -16,6 +16,7 @@ class SongsController < ApplicationController
     @song.save
 
     current_user.songs << @song
+    response.set_header("Location", songs_path(@song))
     json_response(@song, :created)
   end
 
