@@ -14,7 +14,7 @@ class AlbumsController < ApplicationController
 
     # POST /artists/:artist_id/albums
     def create
-        @artist.albums.create!(album_params)
+        @album = @artist.albums.create!(album_params)
         json_response(@album, :created)
     end
 
