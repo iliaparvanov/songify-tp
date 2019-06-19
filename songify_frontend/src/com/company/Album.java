@@ -14,11 +14,11 @@ public class Album {
     private int id;
 
     public String getTitle() {
-        return title.get();
+        return title;
     }
 
     public void setTitle(String title) {
-        this.title = new SimpleStringProperty(title);
+        this.title = title;
     }
 
     public Artist getArtist() {
@@ -29,12 +29,12 @@ public class Album {
         this.artist = artist;
     }
 
-    private SimpleStringProperty title;
+    private String title;
     private Artist artist;
 
     public Album(int id, String title, Artist artist) {
         this.id = id;
-        this.title = new SimpleStringProperty(title);
+        this.title = title;
         this.artist = artist;
     }
 
