@@ -10,10 +10,11 @@ class SongsController < ApplicationController
   def create
   	album = Album.find_by(title: params["album"])
   	artist = Artist.find_by(name: params["artist"])
+  	p artist
   	@song = Song.new(title: params["title"], length: params["length"], genre: params["genre"], album: album)
-    @song.artists << artist
+    @song.artist = artist
     @song.save
-    
+
     current_user.songs << @song
     json_response(@song, :created)
   end
