@@ -8,7 +8,12 @@ class SongsController < ApplicationController
 
   # POST /songs
   def create
-    @song = Song.create!(song_params)
+  	album = Album.find_by(title: params["album"])
+  	artist = Artist.find_by(name: params["artist"])
+  	@song = Song.new(title: params["title"], length: params["length"], genre: params["genre"], album: album)
+    @song.artists << artist
+    @song.save
+    
     current_user.songs << @song
     json_response(@song, :created)
   end
@@ -34,7 +39,7 @@ class SongsController < ApplicationController
 
   def song_params
     # whitelist params
-    params.permit(:title, :length, user: current_user)
+    params.permit(:title, :length, :genre, :artist, :album, user: current_user)
   end
 
   def set_song

@@ -31,4 +31,8 @@ module ExceptionHandler
   def invalid_token(e)
     json_response({message: e.message}, :InvalidToken)
   end
+
+  def unauthorized_request(e)
+    json_response({message: e.message}, 401)
+  end
 end
