@@ -7,6 +7,11 @@ import retrofit2.http.*;
 import java.util.List;
 
 public interface SongifyClient {
+    @POST("/auth/login")
+    @FormUrlEncoded
+    Call<Authentication> authenticate(@Field("email") String email,
+                                      @Field("password") String password);
+
     @GET("/artists")
     Call<List<Artist>> getAllArtists();
 
