@@ -4,7 +4,7 @@ class AlbumsController < ApplicationController
 
     # GET /artists/:artist_id/albums
     def index
-        json_response(@artist.albums)
+        @albums = paginate Album.unscoped, per_page: 5
     end
 
     # GET /artists/:artist_id/albums/:id

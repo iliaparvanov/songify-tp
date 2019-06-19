@@ -3,9 +3,7 @@ class SongsController < ApplicationController
 	before_action :set_song, only: [:show, :update, :destroy]
 	# GET /todos
   def index
-    @songs = current_user.songs
-    json_response(@songs)
-    p current_user
+  	@songs = paginate current_user.songs.unscoped, per_page: 5
   end
 
   # POST /songs
