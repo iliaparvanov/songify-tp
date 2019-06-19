@@ -3,11 +3,8 @@ package com.company.controllers;
 import com.company.*;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +15,7 @@ public class ArtistsController {
 
     public static List<Artist> index() throws NetworkFailureException, IOException {
         Call<List<Artist>> call =
-                client.allArtists();
+                client.getAllArtists();
 
         currentArtists = call.execute().body();
 //        call.enqueue(new Callback<>() {
@@ -57,10 +54,15 @@ public class ArtistsController {
 
     }
 
+    public static void update(Artist artist) throws IOException {
+        Call<ResponseBody> call = client.updateArtist(artist.getId(), artist);
+        ResponseBody body = call.execute().body();
+    }
+
     public static void delete(int id) throws NetworkFailureException, IOException {
         Call<ResponseBody> call = client.deleteArtist(id);
 
-        call.execute().body();
+        ResponseBody body =  call.execute().body();
 //        call.enqueue(new Callback<>() {
 //            @Override
 //            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -73,20 +75,7 @@ public class ArtistsController {
 //        });
     }
     /*
-    public static void update(Artist artist) throws SQLException {
-        PreparedStatement statement = connection.getConn()
-                .prepareStatement("UPDATE Artist SET name=? WHERE Id=?");
 
-        statement.setString(1, artist.getName());
-        statement.setInt(2, artist.id);
-
-        int rowsUpdated = statement.executeUpdate();
-        if(rowsUpdated > 0){
-            System.out.println("Artist updated succesfully");
-        }
-
-
-    }
 
     public static List<Artist> find(String name) throws SQLException {
         PreparedStatement statement = connection.getConn().prepareStatement("SELECT * FROM Artist WHERE Name LIKE ?");

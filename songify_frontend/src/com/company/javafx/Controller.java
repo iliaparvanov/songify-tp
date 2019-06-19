@@ -83,8 +83,6 @@ public class Controller implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
             fetchAllFromDB();
-        } catch (SQLException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -92,6 +90,12 @@ public class Controller implements Initializable {
         artistTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         artistTableView.setEditable(true);
         artistNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+
+        albumTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
+        albumTitleColumn.setCellValueFactory(new PropertyValueFactory<Album, String>("title"));
+        albumArtistColumn.setCellValueFactory(new PropertyValueFactory<Album, Artist>("artist"));
+        albumTitleColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 /*
         songTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         songTitleColumn.setCellValueFactory(new PropertyValueFactory<Song, String>("title"));
@@ -100,12 +104,6 @@ public class Controller implements Initializable {
         songAlbumColumn.setCellValueFactory(new PropertyValueFactory<Song, Album>("album"));
         songArtistsColumn.setCellValueFactory(new PropertyValueFactory<Song, List<Artist>>("artists"));
         songGenreColumn.setCellValueFactory(new PropertyValueFactory<Song, Genre>("genre"));
-
-        albumTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-
-        albumTitleColumn.setCellValueFactory(new PropertyValueFactory<Album, String>("title"));
-        albumArtistColumn.setCellValueFactory(new PropertyValueFactory<Album, Artist>("artist"));
-        albumTitleColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
         genreNameColumn.setCellValueFactory(new PropertyValueFactory<Genre, String>("name"));
         genreNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -118,11 +116,11 @@ public class Controller implements Initializable {
     }
 
 
-    public void changeArtistNameCellEvent(TableColumn.CellEditEvent editted) throws SQLException {
-//        Artist selectedArtist = artistTableView.getSelectionModel().getSelectedItem();
-//        selectedArtist.setName(editted.getNewValue().toString());
-//        ArtistsController.update(selectedArtist);
-//        fetchAllFromDB();
+    public void changeArtistNameCellEvent(TableColumn.CellEditEvent editted) throws IOException {
+        Artist selectedArtist = artistTableView.getSelectionModel().getSelectedItem();
+        selectedArtist.setName(editted.getNewValue().toString());
+        ArtistsController.update(selectedArtist);
+        fetchAllFromDB();
     }
 
     public void changeGenreNameCellEvent(TableColumn.CellEditEvent editted) throws SQLException {
@@ -209,8 +207,6 @@ public class Controller implements Initializable {
         }
         try {
             fetchAllFromDB();
-        } catch (SQLException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -262,11 +258,11 @@ public class Controller implements Initializable {
         */
     }
 
-    public void createAlbum() throws SQLException {
-//        if (!albumTitleTextField.getText().toString().equals("") && artistTableView.getSelectionModel().getSelectedItems().size() != 0) {
-//            Album album = AlbumsController.create(albumTitleTextField.getText().toString(), artistTableView.getSelectionModel().getSelectedItems().get(0));
-//            albumTableView.getItems().add(album);
-//        }
+    public void createAlbum() throws SQLException, IOException {
+        if (!albumTitleTextField.getText().toString().equals("") && artistTableView.getSelectionModel().getSelectedItems().size() != 0) {
+            Album album = AlbumsController.create(albumTitleTextField.getText().toString(), artistTableView.getSelectionModel().getSelectedItems().get(0));
+            albumTableView.getItems().add(album);
+        }
     }
 
     public void deleteAlbums() throws SQLException {
@@ -310,11 +306,11 @@ public class Controller implements Initializable {
 //        fetchAllFromDB();
     }
 
-    private void fetchAllFromDB() throws SQLException, IOException {
+    private void fetchAllFromDB() throws IOException {
         artistTableView.setItems(FXCollections.observableList(ArtistsController.index()));
+        albumTableView.setItems(FXCollections.observableList(AlbumsController.index()));
         /*
         songTableView.setItems(FXCollections.observableList(SongsController.index()));
-        albumTableView.setItems(FXCollections.observableList(AlbumsController.index()));
         genreTableView.setItems(FXCollections.observableList(GenresController.index()));
         */
     }

@@ -1,31 +1,42 @@
 package com.company.controllers;
 
 import com.company.Album;
+import com.company.Artist;
+import com.company.ClientConnection;
+import com.company.SongifyClient;
+import retrofit2.Call;
 
+import java.io.IOException;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AlbumsController {
-/*
-    public static List<Album> index() throws SQLException {
+    private final static SongifyClient client = new ClientConnection().getClient();
+    private static List<Album> currentAlbums = new ArrayList<>();
+    private static Album currentAlbum;
 
-    }
-*/
-/*
-    public static Album create(String title, Artist artist) throws SQLException{
-        PreparedStatement statement = connection.getConn()
-                .prepareStatement("INSERT INTO Album (title, artistId) VALUES(?, ?)");
-        statement.setString(1, title);
-        statement.setInt(2, artist.id);
-
-        int rowsInserted = statement.executeUpdate();
-        if(rowsInserted > 0){
-            System.out.println("Album inserted succesfully");
+    public static List<Album> index() throws IOException {
+        currentAlbums.clear();
+        for (Artist a : ArtistsController.index()) {
+            Call<List<Album>> call = client.getAllAlbums(a.getId());
+            List<Album> albumsForArtist = call.execute().body();
+            albumsForArtist.stream()
+                    .forEach((album) -> album.setArtist(a));
+            currentAlbums.addAll(albumsForArtist);
         }
-
-        return findFirst(title, artist);
+        return currentAlbums;
     }
 
+
+    public static Album create(String title, Artist artist) throws SQLException, IOException {
+        Call<Album> call = client.createAlbum(artist.getId(), title);
+        currentAlbum = call.execute().body();
+        System.out.println(currentAlbum.getTitle());
+        currentAlbum.setArtist(artist);
+        return currentAlbum;
+    }
+/*
     public static void delete(int id) throws SQLException {
         SongsController.delete(AlbumsController.find(id));
         PreparedStatement statement = connection.getConn().prepareStatement("DELETE FROM Album WHERE id = ?");
