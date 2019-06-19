@@ -77,7 +77,7 @@ public class Controller implements Initializable {
     @FXML
     public ChoiceBox<Integer> songLengthSecondsChoiceBox;
 
-
+    private Authentication auth;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -313,6 +313,14 @@ public class Controller implements Initializable {
         songTableView.setItems(FXCollections.observableList(SongsController.index()));
         genreTableView.setItems(FXCollections.observableList(GenresController.index()));
         */
+    }
+
+    public Authentication getAuth() {
+        return auth;
+    }
+
+    public void setAuth(Authentication auth) {
+        this.auth = auth;
     }
 }
 
