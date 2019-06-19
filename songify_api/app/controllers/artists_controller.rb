@@ -3,8 +3,8 @@ class ArtistsController < ApplicationController
 
   # GET /todos
   def index
-    @artists = Artist.all
-    json_response(@artists)
+    @artists = paginate Artist.unscoped, per_page: 1
+    # json_response(@artists)
   end
 
   # POST /artists
