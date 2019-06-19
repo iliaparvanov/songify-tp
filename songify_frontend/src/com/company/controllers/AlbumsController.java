@@ -4,6 +4,7 @@ import com.company.Album;
 import com.company.Artist;
 import com.company.ClientConnection;
 import com.company.SongifyClient;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 
 import java.io.IOException;
@@ -29,24 +30,19 @@ public class AlbumsController {
     }
 
 
-    public static Album create(String title, Artist artist) throws SQLException, IOException {
+    public static Album create(String title, Artist artist) throws IOException {
         Call<Album> call = client.createAlbum(artist.getId(), title);
         currentAlbum = call.execute().body();
         System.out.println(currentAlbum.getTitle());
         currentAlbum.setArtist(artist);
         return currentAlbum;
     }
-/*
-    public static void delete(int id) throws SQLException {
-        SongsController.delete(AlbumsController.find(id));
-        PreparedStatement statement = connection.getConn().prepareStatement("DELETE FROM Album WHERE id = ?");
-        statement.setInt(1, id);
-        int rowsDeleted = statement.executeUpdate();
-        if(rowsDeleted > 0){
-            System.out.println("Album deleted succesfully");
-        }
-    }
 
+    public static void delete(Album album) throws IOException {
+        Call<ResponseBody> call = client.deleteAlbum(album.getArtist().getId(), album.getId());
+        call.execute().body();
+    }
+/*
     public static void delete(Artist artist) throws SQLException {
         AlbumsController.find(artist).stream().forEach((a) -> {
             try {
@@ -112,18 +108,6 @@ public class AlbumsController {
         List<Album> albums = new ArrayList<>();
         while (result.next()) {
             albums.add(new Album(result.getInt("Id"), result.getString("Title"), ArtistsController.find(result.getInt("ArtistID"))));
-        }
-        return albums.get(0);
-    }
-
-    public static Album find(int id) throws SQLException {
-        PreparedStatement statement = connection.getConn().prepareStatement("SELECT * FROM Album WHERE Id = ?");
-        statement.setInt(1, id);
-
-        ResultSet result = statement.executeQuery();
-        List<Album> albums = new ArrayList<>();
-        while (result.next()) {
-            albums.add(new Album(id, result.getString("Title"), ArtistsController.find(result.getInt("ArtistID"))));
         }
         return albums.get(0);
     }

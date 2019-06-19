@@ -5,6 +5,7 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,6 +75,11 @@ public class ArtistsController {
 //            }
 //        });
     }
+
+    public static Artist find(int id) throws IOException {
+        Call<Artist> call = client.getArtist(id);
+        return call.execute().body();
+    }
     /*
 
 
@@ -87,18 +93,6 @@ public class ArtistsController {
             artists.add(new Artist(result.getInt("Id"), result.getString("Name")));
         }
         return artists;
-    }
-
-    public static Artist find(int id) throws SQLException {
-        PreparedStatement statement = connection.getConn().prepareStatement("SELECT * FROM Artist WHERE Id = ?");
-        statement.setInt(1, id);
-
-        ResultSet result = statement.executeQuery();
-        Artist artist = null;
-        while (result.next()) {
-            artist = new Artist(id, result.getString("Name"));
-        }
-        return artist;
     }
 
     public static List<Artist> findBySongId(int songId) throws SQLException {

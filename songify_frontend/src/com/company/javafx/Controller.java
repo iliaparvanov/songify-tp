@@ -265,18 +265,18 @@ public class Controller implements Initializable {
         }
     }
 
-    public void deleteAlbums() throws SQLException {
-//        ObservableList<Album> selectedAlbums;
-//        selectedAlbums = albumTableView.getSelectionModel().getSelectedItems();
-//        for (Album a : selectedAlbums) {
-//            AlbumsController.delete(a.id);
-//        }
-//        try {
-//            fetchAllFromDB();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
+    public void deleteAlbums() throws SQLException, IOException {
+        ObservableList<Album> selectedAlbums;
+        selectedAlbums = albumTableView.getSelectionModel().getSelectedItems();
+        selectedAlbums.stream().forEach((album -> {
+            try {
+                AlbumsController.delete(album);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }));
 
+        fetchAllFromDB();
     }
 
     public void deleteGenres() throws SQLException {
