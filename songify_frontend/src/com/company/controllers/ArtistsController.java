@@ -1,59 +1,78 @@
 package com.company.controllers;
 
 import com.company.*;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.io.IOException;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ArtistsController {
     private final static SongifyClient client = new ClientConnection().getClient();
     private static List<Artist> currentArtists = new ArrayList<>();
+    private static Artist currentArtist;
 
-    public static List<Artist> index() throws SQLException {
+    public static List<Artist> index() throws NetworkFailureException, IOException {
         Call<List<Artist>> call =
                 client.allArtists();
 
-        call.enqueue(new Callback<>() {
-            @Override
-            public void onResponse(Call<List<Artist>> call, Response<List<Artist>> response) {
-                currentArtists = response.body();
-            }
-
-            @Override
-            public void onFailure(Call<List<Artist>> call, Throwable t) {
-                throw new NetworkFailureException();
-            }
-        });
-
+        currentArtists = call.execute().body();
+//        call.enqueue(new Callback<>() {
+//            @Override
+//            public void onResponse(Call<List<Artist>> call, Response<List<Artist>> response) {
+//                System.out.println("onResponse");
+//                currentArtists = response.body();
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<Artist>> call, Throwable t) {
+//                throw new NetworkFailureException();
+//            }
+//        });
+//        System.out.println("before return");
         return currentArtists;
     }
-/*
-    public static Artist create(String name) throws SQLException {
-        String sql = "INSERT INTO Artist(Name) VALUES (?)";
 
-        PreparedStatement statement = connection.getConn().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-        statement.setString(1, name);
+    public static Artist create(String name) throws NetworkFailureException, IOException {
+        Call<Artist> call = client.createArtist(name);
 
-        int insertedRows = statement.executeUpdate();
-        if (insertedRows > 0) {
-            System.out.println("A new artist was created successfully!");
-        }
+        currentArtist = call.execute().body();
+//        call.enqueue(new Callback<>() {
+//            @Override
+//            public void onResponse(Call<Artist> call, Response<Artist> response) {
+//                currentArtist = response.body();
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Artist> call, Throwable t) {
+//                throw new NetworkFailureException();
+//            }
+//        });
 
-        int id = 0;
-        ResultSet rs = statement.getGeneratedKeys();
-        if (rs.next()) {
-            id = rs.getInt(1);
-        }
-        return new Artist(id, name);
+        return currentArtist;
+
     }
 
+    public static void delete(int id) throws NetworkFailureException, IOException {
+        Call<ResponseBody> call = client.deleteArtist(id);
+
+        call.execute().body();
+//        call.enqueue(new Callback<>() {
+//            @Override
+//            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ResponseBody> call, Throwable t) {
+//                throw new NetworkFailureException();
+//            }
+//        });
+    }
+    /*
     public static void update(Artist artist) throws SQLException {
         PreparedStatement statement = connection.getConn()
                 .prepareStatement("UPDATE Artist SET name=? WHERE Id=?");
@@ -66,38 +85,6 @@ public class ArtistsController {
             System.out.println("Artist updated succesfully");
         }
 
-
-    }
-
-    public static void delete(int id) throws SQLException {
-        connection.getConn().setAutoCommit(false);
-
-        try {
-            SongsController.delete(ArtistsController.find(id));
-            AlbumsController.delete(ArtistsController.find(id));
-            String sql = "DELETE FROM Artist WHERE Id=?";
-
-            PreparedStatement statement = connection.getConn().prepareStatement("SET FOREIGN_KEY_CHECKS = 1;");
-            statement.execute();
-            statement = connection.getConn().prepareStatement(sql);
-            statement.setInt(1, id );
-
-            int rowsDeleted = statement.executeUpdate();
-            if (rowsDeleted > 0) {
-                System.out.println("An artist was deleted successfully!");
-            }
-
-            statement = connection.getConn().prepareStatement("DELETE FROM ArtistSong WHERE ArtistId = ?");
-            statement.setInt(1, id);
-
-            statement.executeUpdate();
-        } catch(Exception e) {
-            connection.getConn().rollback();
-            e.printStackTrace();
-        } finally {
-            connection.getConn().setAutoCommit(true);
-
-        }
 
     }
 

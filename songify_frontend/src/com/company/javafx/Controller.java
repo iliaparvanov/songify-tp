@@ -1,10 +1,7 @@
 
 package com.company.javafx;
 
-import com.company.Album;
-import com.company.Artist;
-import com.company.Genre;
-import com.company.Song;
+import com.company.*;
 import com.company.controllers.AlbumsController;
 import com.company.controllers.ArtistsController;
 import com.company.controllers.GenresController;
@@ -19,6 +16,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.control.cell.TextFieldTableCell;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.Arrays;
@@ -87,13 +85,14 @@ public class Controller implements Initializable {
             fetchAllFromDB();
         } catch (SQLException e) {
             e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         artistNameColumn.setCellValueFactory(new PropertyValueFactory<Artist, String>("name"));
-        /*
         artistTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         artistTableView.setEditable(true);
         artistNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-
+/*
         songTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         songTitleColumn.setCellValueFactory(new PropertyValueFactory<Song, String>("title"));
         songReleaseDateColumn.setCellValueFactory(new PropertyValueFactory<Song, String>("releaseDate"));
@@ -202,24 +201,26 @@ public class Controller implements Initializable {
 //        }
     }
 
-    public void deleteArtists() throws SQLException {
-//        ObservableList<Artist> selectedArtists;
-//        selectedArtists = artistTableView.getSelectionModel().getSelectedItems();
-//        for (Artist a : selectedArtists) {
-//            ArtistsController.delete(a.id);
-//        }
-//        try {
-//            fetchAllFromDB();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
+    public void deleteArtists() throws SQLException, IOException {
+        ObservableList<Artist> selectedArtists;
+        selectedArtists = artistTableView.getSelectionModel().getSelectedItems();
+        for (Artist a : selectedArtists) {
+            ArtistsController.delete(a.getId());
+        }
+        try {
+            fetchAllFromDB();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void createArtist() throws SQLException {
-//        if (!artistNameTextField.getText().toString().equals("")) {
-//            Artist artist = ArtistsController.create(artistNameTextField.getText().toString());
-//            artistTableView.getItems().add(artist);
-//        }
+    public void createArtist() throws NetworkFailureException, IOException {
+        if (!artistNameTextField.getText().toString().equals("")) {
+            Artist artist = ArtistsController.create(artistNameTextField.getText().toString());
+            artistTableView.getItems().add(artist);
+        }
     }
 
     public void deleteSongs() throws SQLException {
@@ -309,7 +310,7 @@ public class Controller implements Initializable {
 //        fetchAllFromDB();
     }
 
-    private void fetchAllFromDB() throws SQLException {
+    private void fetchAllFromDB() throws SQLException, IOException {
         artistTableView.setItems(FXCollections.observableList(ArtistsController.index()));
         /*
         songTableView.setItems(FXCollections.observableList(SongsController.index()));

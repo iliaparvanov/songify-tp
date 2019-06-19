@@ -10,7 +10,7 @@ import java.util.Properties;
 
 public class ClientConnection {
 
-    private static final String API_BASE_URL = "https://localhost:3000/";
+    private static final String API_BASE_URL = "http://localhost:3000";
     private SongifyClient client;
 
     public ClientConnection() {
@@ -23,7 +23,7 @@ public class ClientConnection {
 
         Retrofit retrofit = builder.client(httpClient.build()).build();
 
-        this.client =  retrofit.create(SongifyClient.class);
+        this.client = retrofit.create(SongifyClient.class);
     }
 
     public SongifyClient getClient() {
