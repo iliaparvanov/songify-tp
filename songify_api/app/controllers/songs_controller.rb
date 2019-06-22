@@ -12,8 +12,7 @@ class SongsController < ApplicationController
   	artist = Artist.find_by(name: params["artist"])
   	@song = Song.new(title: params["title"], length: params["length"], genre: params["genre"], album: album)
     @song.artist = artist
-    @song.save
-
+    @song.save!
     @current_user.songs << @song
     response.set_header("Location", song_url(@song))
     json_response(@song, :created)
@@ -28,16 +27,16 @@ class SongsController < ApplicationController
   def update
     album = Album.find_by(title: params["album"])
     artist = Artist.find_by(name: params["artist"])
-    @song.update(title: params["title"], length: params["length"], genre: params["genre"], album: album)
+    @song.update!(title: params["title"], length: params["length"], genre: params["genre"], album: album)
     @song.artist = artist
-    @song.save
+    @song.save!
     response.set_header("Location", song_url(@song))
     head :no_content
   end
 
   # DELETE /songs/:id
   def destroy
-    @song.destroy
+    @song.destroy!
     head :no_content
   end
 
@@ -49,6 +48,9 @@ class SongsController < ApplicationController
 
   def set_song
     @song = Song.find(params[:id])
+    if @song.nil?
+      raise ActiveRecord::RecordNotFound
+    end
   end
 
 end

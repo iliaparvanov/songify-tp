@@ -21,14 +21,14 @@ class AlbumsController < ApplicationController
 
     # PUT /artists/:artist_id/albums/:id
     def update
-        @album.update(album_params)
+        @album.update!(album_params)
         response.set_header("Location", artist_album_url(@artist, @album))
         head :no_content
     end
 
     # DELETE /artist/:artist_id/albums/:id
     def destroy
-        @album.destroy
+        @album.destroy!
         head :no_content
     end
 
@@ -43,6 +43,9 @@ class AlbumsController < ApplicationController
     end
 
     def set_artist_album
-        @album = @artist.albums.find_by!(id: params[:id]) if @artist
+        @album = @artist.albums.find_by(id: params[:id]) if @artist
+        if @album.nil?
+            raise ActiveRecord::RecordNotFound
+        end
     end
 end

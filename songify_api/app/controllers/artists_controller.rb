@@ -20,14 +20,14 @@ class ArtistsController < ApplicationController
 
   # PUT /artists/:id
   def update
-    @artist.update(artist_params)
+    @artist.update!(artist_params)
     response.set_header("Location", artist_url(@artist))
     head :no_content
   end
 
   # DELETE /artists/:id
   def destroy
-    @artist.destroy
+    @artist.destroy!
     head :no_content
   end
 
@@ -35,7 +35,7 @@ class ArtistsController < ApplicationController
 
   def artist_params
     # whitelist params
-    params.permit(:name)
+    params.permit(:name, :id)
   end
 
   def set_artist

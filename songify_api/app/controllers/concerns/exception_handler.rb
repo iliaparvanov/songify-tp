@@ -13,26 +13,28 @@ module ExceptionHandler
     rescue_from ExceptionHandler::MissingToken, with: :missing_token
     rescue_from ExceptionHandler::InvalidToken, with: :invalid_token
 
-    rescue_from ActiveRecord::RecordNotFound do |e|
-      json_response({ message: e.message }, :not_found)
-    end
+    rescue_from ActiveRecord::RecordNotFound, with: :not_found
   end
 
   private
 
   def four_twenty_two(e)
-    json_response({ message: e.message }, 204)
+    json_response({ message: e.message }, 422)
   end
 
   def missing_token(e)
-    json_response({message: e.message}, :MissingToken)
+    json_response({message: e.message}, 401)
   end
 
   def invalid_token(e)
-    json_response({message: e.message}, :InvalidToken)
+    json_response({message: e.message}, 401)
   end
 
   def unauthorized_request(e)
     json_response({message: e.message}, 401)
+  end
+
+  def not_found(e) 
+    json_response({message: "Record not found"}, 404)
   end
 end
