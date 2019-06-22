@@ -9,6 +9,7 @@ class ArtistsController < ApplicationController
   # POST /artists
   def create
     @artist = Artist.create!(artist_params)
+    response.set_header("Location", artist_url(@artist))
     json_response(@artist, :created)
   end
 
@@ -20,6 +21,7 @@ class ArtistsController < ApplicationController
   # PUT /artists/:id
   def update
     @artist.update(artist_params)
+    response.set_header("Location", artist_url(@artist))
     head :no_content
   end
 

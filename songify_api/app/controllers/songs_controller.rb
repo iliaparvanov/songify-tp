@@ -3,20 +3,19 @@ class SongsController < ApplicationController
 	before_action :set_song, only: [:show, :update, :destroy]
 	# GET /todos
   def index
-  	@songs = paginate current_user.songs.unscoped, per_page: 5
+  	@songs = paginate @current_user.songs, per_page: 5
   end
 
   # POST /songs
   def create
   	album = Album.find_by(title: params["album"])
   	artist = Artist.find_by(name: params["artist"])
-  	p artist
   	@song = Song.new(title: params["title"], length: params["length"], genre: params["genre"], album: album)
     @song.artist = artist
     @song.save
 
-    current_user.songs << @song
-    response.set_header("Location", songs_path(@song))
+    @current_user.songs << @song
+    response.set_header("Location", song_url(@song))
     json_response(@song, :created)
   end
 
@@ -27,7 +26,12 @@ class SongsController < ApplicationController
 
   # PUT /songs/:id
   def update
-    @song.update(song_params)
+    album = Album.find_by(title: params["album"])
+    artist = Artist.find_by(name: params["artist"])
+    @song.update(title: params["title"], length: params["length"], genre: params["genre"], album: album)
+    @song.artist = artist
+    @song.save
+    response.set_header("Location", song_url(@song))
     head :no_content
   end
 
@@ -40,7 +44,6 @@ class SongsController < ApplicationController
   private
 
   def song_params
-    # whitelist params
     params.permit(:title, :length, :genre, :artist, :album, user: current_user)
   end
 

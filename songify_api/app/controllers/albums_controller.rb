@@ -15,12 +15,14 @@ class AlbumsController < ApplicationController
     # POST /artists/:artist_id/albums
     def create
         @album = @artist.albums.create!(album_params)
+        response.set_header("Location", artist_album_url(@artist, @album))
         json_response(@album, :created)
     end
 
     # PUT /artists/:artist_id/albums/:id
     def update
         @album.update(album_params)
+        response.set_header("Location", artist_album_url(@artist, @album))
         head :no_content
     end
 
