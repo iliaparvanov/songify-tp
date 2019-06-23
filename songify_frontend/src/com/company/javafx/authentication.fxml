@@ -13,7 +13,7 @@
    <children>
       <HBox alignment="TOP_CENTER" layoutX="36.0" layoutY="47.0" prefHeight="303.0" prefWidth="532.0" spacing="20.0">
          <children>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
+            <VBox alignment="CENTER" prefHeight="303.0" prefWidth="150.0" spacing="10.0">
                <children>
                   <Label alignment="TOP_CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="101.0" text="Sign up" textAlignment="CENTER">
                      <font>
@@ -22,12 +22,13 @@
                   </Label>
                   <TextField fx:id="signUpNameTextField" promptText="Username" />
                   <TextField fx:id="signUpEmailTextField" promptText="Email" />
-                  <PasswordField fx:id="signUpPasswordField" promptText="Password" />
+                  <PasswordField fx:id="signUpPasswordField" promptText="Your password" />
                   <PasswordField fx:id="signUpPasswordConfirmationField" promptText="Confirm password" />
+                  <PasswordField fx:id="secretPasswordField" promptText="Secret API password" />
                   <Button mnemonicParsing="false" onAction="#signUpButtonPressed" text="Sign up" />
                </children>
             </VBox>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="15.0">
+            <VBox alignment="CENTER" prefHeight="303.0" prefWidth="150.0" spacing="15.0">
                <children>
                   <Label alignment="TOP_CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="101.0" text="Sign in" textAlignment="CENTER">
                      <font>

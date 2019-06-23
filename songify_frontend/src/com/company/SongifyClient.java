@@ -15,9 +15,10 @@ public interface SongifyClient {
     @POST("/signup")
     @FormUrlEncoded
     Call<Authentication> signup(@Field("email") String email,
-                                      @Field("name") String name,
-                                      @Field("password") String password,
-                                      @Field("password_confirmation") String password_confirmation);
+                                @Field("name") String name,
+                                @Field("password") String password,
+                                @Field("password_confirmation") String password_confirmation,
+                                @Field("key_for_signup") String key_for_signup);
 
     @GET("/songs")
     Call<List<Song>> getAllSongs();
@@ -41,6 +42,9 @@ public interface SongifyClient {
 
     @GET("/artists")
     Call<List<Artist>> getAllArtists();
+
+    @GET("/artists")
+    Call<List<Artist>> getArtistsOnPage(@Query("page") int page);
 
     @GET("/artists/{id}")
     Call<Artist> getArtist(@Path("id") int id);

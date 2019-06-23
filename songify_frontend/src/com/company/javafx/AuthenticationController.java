@@ -10,10 +10,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import retrofit2.Call;
+import retrofit2.Response;
 
 import java.io.IOException;
 import java.net.URL;
@@ -31,6 +33,7 @@ public class AuthenticationController implements Initializable {
     @FXML public TextField signUpNameTextField;
     @FXML public PasswordField signUpPasswordField;
     @FXML public PasswordField signUpPasswordConfirmationField;
+    @FXML public PasswordField secretPasswordField;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -41,27 +44,57 @@ public class AuthenticationController implements Initializable {
         if (!signUpEmailTextField.getText().equals("")
                 && !signUpPasswordField.getText().equals("")
                 && !signUpPasswordConfirmationField.getText().equals("")
-                && !signUpNameTextField.getText().equals("")) {
+                && !signUpNameTextField.getText().equals("")
+                && !secretPasswordField.getText().equals("")) {
             Call<Authentication> call = client.signup(signUpEmailTextField.getText(),
                     signUpNameTextField.getText(),
                     signUpPasswordField.getText(),
-                    signUpPasswordConfirmationField.getText());
-            Authentication auth = call.execute().body();
-//            System.out.println(auth.getAuth_token());
-            if (auth.getAuth_token() != null) {
+                    signUpPasswordConfirmationField.getText(),
+                    secretPasswordField.getText());
+            Response<Authentication> res = call.execute();
+            if (res.isSuccessful()) {
+                Authentication auth = res.body();
                 loadMainScene(event, auth);
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText(res.errorBody().string());
+
+                alert.showAndWait();
             }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Please fill in all fields!");
+
+            alert.showAndWait();
         }
     }
 
     public void signInButtonPressed(ActionEvent event) throws IOException {
         if (!signInEmailTextField.getText().equals("") && !signInPasswordTextField.getText().equals("")) {
             Call<Authentication> call = client.authenticate(signInEmailTextField.getText(), signInPasswordTextField.getText());
-            Authentication auth = call.execute().body();
-//            System.out.println(auth.getAuth_token());
-            if (auth.getAuth_token() != null) {
+            Response<Authentication> res = call.execute();
+            if (res.isSuccessful()) {
+                Authentication auth = res.body();
                 loadMainScene(event, auth);
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText(res.errorBody().string());
+
+                alert.showAndWait();
             }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Please fill in all fields!");
+
+            alert.showAndWait();
         }
 
     }

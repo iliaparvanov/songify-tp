@@ -5,6 +5,7 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Pagination?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -106,7 +107,10 @@
             <Button mnemonicParsing="false" onAction="#deleteAlbums" prefHeight="25.0" text="Delete album" />
          </children>
       </VBox>
-      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+         <children>
+            <Pagination fx:id="artistsPagination" prefHeight="200.0" prefWidth="200.0" />
+         </children></VBox>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" GridPane.rowIndex="3">
          <children>
             <Label alignment="CENTER" prefHeight="31.0" prefWidth="166.0" text="Add album (select artist for album from list above)" wrapText="true" />

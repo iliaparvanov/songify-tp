@@ -35,6 +35,9 @@ import java.util.stream.IntStream;
 public class Controller implements Initializable {
 
     @FXML
+    public Pagination artistsPagination;
+
+    @FXML
     public TableView<Artist> artistTableView;
     @FXML
     public TableColumn<Artist, String> artistNameColumn;
@@ -85,10 +88,17 @@ public class Controller implements Initializable {
         Platform.runLater(() -> {
             authenticateControllers();
             try {
+                initializePagination();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
                 fetchAllFromDB();
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
+
         });
         artistNameColumn.setCellValueFactory(new PropertyValueFactory<Artist, String>("name"));
         artistTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -123,6 +133,13 @@ public class Controller implements Initializable {
         System.out.println(auth.getAuth_token());
         AlbumsController.authenticateClient(auth);
         ArtistsController.authenticateClient(auth);
+    }
+
+    private void initializePagination() throws IOException {
+        System.out.println(ArtistsController.maxPage());
+        artistsPagination.setMaxPageIndicatorCount(ArtistsController.maxPage());
+        artistsPagination.setPageCount(ArtistsController.maxPage());
+        artistsPagination.setCurrentPageIndex(2);
     }
 
     public void signout(ActionEvent event) throws IOException {
@@ -323,6 +340,8 @@ public class Controller implements Initializable {
 
     private void fetchAllFromDB() throws IOException {
         artistTableView.setItems(FXCollections.observableList(ArtistsController.index()));
+//        System.out.println(ArtistsController.maxPage());
+
         albumTableView.setItems(FXCollections.observableList(AlbumsController.index()));
         songTableView.setItems(FXCollections.observableList(SongsController.index()));
 //        genreTableView.setItems(FXCollections.observableList(GenresController.index()));

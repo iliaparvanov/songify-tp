@@ -1,13 +1,17 @@
 package com.company.controllers;
 
 import com.company.*;
+import okhttp3.Headers;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.Response;
+import retrofit2.http.Header;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class ArtistsController {
     private static SongifyClient client = new ClientConnection().getClient();
@@ -37,6 +41,40 @@ public class ArtistsController {
 //        });
 //        System.out.println("before return");
         return currentArtists;
+    }
+
+    public static List<Artist> index(int page) throws NetworkFailureException, IOException {
+        Call<List<Artist>> call =
+                client.getArtistsOnPage(page);
+
+        currentArtists = call.execute().body();
+//        call.enqueue(new Callback<>() {
+//            @Override
+//            public void onResponse(Call<List<Artist>> call, Response<List<Artist>> response) {
+//                System.out.println("onResponse");
+//                currentArtists = response.body();
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<Artist>> call, Throwable t) {
+//                throw new NetworkFailureException();
+//            }
+//        });
+//        System.out.println("before return");
+        return currentArtists;
+    }
+
+    public static int maxPage() throws IOException {
+        Call<List<Artist>> call = client.getArtistsOnPage(1);
+        Response<List<Artist>> res = call.execute();
+        Headers headers = res.headers();
+        Map<String, List<String>> headersMap = headers.toMultimap();
+        for (Map.Entry<String, List<String>> entry : headersMap.entrySet()) {
+            if (entry.getKey().equals("x-total-pages")) {
+                return Integer.parseInt(entry.getValue().get(0));
+            }
+        }
+        return -1;
     }
 
     public static Artist create(String name) throws NetworkFailureException, IOException {
