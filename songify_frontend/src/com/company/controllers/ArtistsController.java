@@ -61,6 +61,14 @@ public class ArtistsController {
 //            }
 //        });
 //        System.out.println("before return");
+        if (currentArtists == null) {
+            System.out.println("NULL!!!!1");
+        } else {
+
+            for (Artist a : currentArtists) {
+                System.out.println(a.toString());
+            }
+        }
         return currentArtists;
     }
 

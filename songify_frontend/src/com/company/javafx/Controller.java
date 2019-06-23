@@ -21,6 +21,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -88,15 +90,16 @@ public class Controller implements Initializable {
         Platform.runLater(() -> {
             authenticateControllers();
             try {
-                initializePagination();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            try {
                 fetchAllFromDB();
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            try {
+                initializePagination();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
 
 
         });
@@ -136,10 +139,22 @@ public class Controller implements Initializable {
     }
 
     private void initializePagination() throws IOException {
-        System.out.println(ArtistsController.maxPage());
+//        System.out.println(ArtistsController.maxPage());
+//        artistsPagination.setCurrentPageIndex(1);
+
+        artistsPagination.setPageFactory((Integer pageIndex) -> createPage(pageIndex));
         artistsPagination.setMaxPageIndicatorCount(ArtistsController.maxPage());
         artistsPagination.setPageCount(ArtistsController.maxPage());
-        artistsPagination.setCurrentPageIndex(2);
+    }
+
+    public Node createPage(int pageIndex) {
+        pageIndex += 1;
+        try {
+            artistTableView.setItems(FXCollections.observableList(ArtistsController.index(pageIndex)));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new BorderPane(artistTableView);
     }
 
     public void signout(ActionEvent event) throws IOException {
@@ -339,13 +354,15 @@ public class Controller implements Initializable {
     }
 
     private void fetchAllFromDB() throws IOException {
-        artistTableView.setItems(FXCollections.observableList(ArtistsController.index()));
+//        artistTableView.setItems(FXCollections.observableList(ArtistsController.index(1)));
 //        System.out.println(ArtistsController.maxPage());
 
         albumTableView.setItems(FXCollections.observableList(AlbumsController.index()));
-        songTableView.setItems(FXCollections.observableList(SongsController.index()));
+//        songTableView.setItems(FXCollections.observableList(SongsController.index()));
 //        genreTableView.setItems(FXCollections.observableList(GenresController.index()));
     }
+
+
 
     public Authentication getAuth() {
         return auth;

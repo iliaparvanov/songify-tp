@@ -4,19 +4,9 @@
     <list default="true" id="226becac-712c-417e-8cbf-307dd7306a3a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/../songify_api/db/schema.rb" beforeDir="false" afterPath="$PROJECT_DIR$/../songify_api/db/schema.rb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/songify/com/company/Authentication.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/songify/com/company/Authentication.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/songify/com/company/SongifyClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/songify/com/company/SongifyClient.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/songify/com/company/controllers/ArtistsController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/songify/com/company/controllers/ArtistsController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/songify/com/company/javafx/AuthenticationController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/songify/com/company/javafx/AuthenticationController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/songify/com/company/javafx/Controller.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/songify/com/company/javafx/Controller.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/songify/com/company/javafx/authentication.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/songify/com/company/javafx/authentication.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/songify/com/company/javafx/sample.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/songify/com/company/javafx/sample.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/company/Authentication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/Authentication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/company/SongifyClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/SongifyClient.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/company/controllers/ArtistsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/controllers/ArtistsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/company/javafx/AuthenticationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/javafx/AuthenticationController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/company/javafx/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/javafx/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/company/javafx/authentication.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/javafx/authentication.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/company/javafx/sample.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/javafx/sample.fxml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -34,8 +24,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/company/javafx/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="308">
-              <caret line="93" column="13" selection-start-line="93" selection-start-column="13" selection-end-line="93" selection-end-column="13" />
+            <state relative-caret-position="281">
+              <caret line="147" column="5" lean-forward="true" selection-start-line="147" selection-start-column="5" selection-end-line="147" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -55,8 +45,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/company/controllers/ArtistsController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="247">
-              <caret line="72" selection-start-line="72" selection-end-line="72" />
+            <state relative-caret-position="254">
+              <caret line="71" column="30" lean-forward="true" selection-start-line="71" selection-start-column="30" selection-end-line="71" selection-end-column="30" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#503#504#0" expanded="true" />
@@ -75,8 +65,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/company/javafx/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="171">
-              <caret line="13" column="76" selection-start-line="13" selection-start-column="76" selection-end-line="13" selection-end-column="76" />
+            <state relative-caret-position="95">
+              <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -119,7 +109,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/company/SongifyClient.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="171">
+            <state relative-caret-position="418">
               <caret line="46" column="4" selection-start-line="46" selection-start-column="4" selection-end-line="46" selection-end-column="4" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -131,8 +121,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="jar://$PROJECT_DIR$/../../songify-master/songify/javafx-sdk-12.0.1/lib/javafx.base.jar!/javafx/collections/FXCollections.class">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="380">
-              <caret line="65" column="45" selection-start-line="65" selection-start-column="45" selection-end-line="65" selection-end-column="45" />
+            <state relative-caret-position="139">
+              <caret line="55" selection-start-line="55" selection-end-line="55" />
             </state>
           </provider>
         </entry>
@@ -151,8 +141,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>find</find>
-      <find>options</find>
       <find>print_index</find>
       <find>case &quot;art</find>
       <find>Artist</find>
@@ -180,6 +168,9 @@
       <find>syste</find>
       <find>system</find>
       <find>genre</find>
+      <find>initializePA</find>
+      <find>artistsController.index(</find>
+      <find>ArtistsController.</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -206,8 +197,8 @@
         <option value="$PROJECT_DIR$/src/com/company/Authentication.java" />
         <option value="$PROJECT_DIR$/src/com/company/javafx/AuthenticationController.java" />
         <option value="$PROJECT_DIR$/src/com/company/SongifyClient.java" />
-        <option value="$PROJECT_DIR$/src/com/company/controllers/ArtistsController.java" />
         <option value="$PROJECT_DIR$/src/com/company/javafx/sample.fxml" />
+        <option value="$PROJECT_DIR$/src/com/company/controllers/ArtistsController.java" />
         <option value="$PROJECT_DIR$/src/com/company/javafx/Controller.java" />
       </list>
     </option>
@@ -291,7 +282,7 @@
     <property name="Repository.Attach.Annotations" value="false" />
     <property name="Repository.Attach.JavaDocs" value="false" />
     <property name="Repository.Attach.Sources" value="false" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1561285180313" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1561329859037" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Global Libraries" />
     <property name="project.structure.proportion" value="0.15" />
@@ -446,8 +437,8 @@
       <window_info id="UI Designer" order="6" />
       <window_info id="Capture Tool" order="7" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info active="true" anchor="bottom" id="Find" order="1" visible="true" weight="0.32936078" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.23076923" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32936078" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.4301192" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3997833" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -681,13 +672,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://$PROJECT_DIR$/../../songify-master/songify/javafx-sdk-12.0.1/lib/javafx.base.jar!/javafx/collections/FXCollections.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="65" column="45" selection-start-line="65" selection-start-column="45" selection-end-line="65" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/company/javafx/AuthenticationController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="361">
@@ -698,24 +682,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/company/SongifyClient.java">
+    <entry file="jar://$PROJECT_DIR$/../../songify-master/songify/javafx-sdk-12.0.1/lib/javafx.base.jar!/javafx/collections/FXCollections.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="46" column="4" selection-start-line="46" selection-start-column="4" selection-end-line="46" selection-end-column="4" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="139">
+          <caret line="55" selection-start-line="55" selection-end-line="55" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/company/controllers/ArtistsController.java">
+    <entry file="file://$PROJECT_DIR$/src/com/company/SongifyClient.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="72" selection-start-line="72" selection-end-line="72" />
+        <state relative-caret-position="418">
+          <caret line="46" column="4" selection-start-line="46" selection-start-column="4" selection-end-line="46" selection-end-column="4" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#503#504#0" expanded="true" />
-            <element signature="e#566#567#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -724,17 +703,29 @@
       <provider selected="true" editor-type-id="JavaFX-Scene-Builder" />
       <provider editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/company/controllers/ArtistsController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="254">
+          <caret line="71" column="30" lean-forward="true" selection-start-line="71" selection-start-column="30" selection-end-line="71" selection-end-column="30" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#503#504#0" expanded="true" />
+            <element signature="e#566#567#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/company/javafx/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="13" column="76" selection-start-line="13" selection-start-column="76" selection-end-line="13" selection-end-column="76" />
+        <state relative-caret-position="95">
+          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/company/javafx/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="93" column="13" selection-start-line="93" selection-start-column="13" selection-end-line="93" selection-end-column="13" />
+        <state relative-caret-position="281">
+          <caret line="147" column="5" lean-forward="true" selection-start-line="147" selection-start-column="5" selection-end-line="147" selection-end-column="5" />
         </state>
       </provider>
     </entry>
