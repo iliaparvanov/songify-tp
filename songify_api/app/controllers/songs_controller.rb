@@ -3,7 +3,7 @@ class SongsController < ApplicationController
 	before_action :set_song, only: [:show, :update, :destroy]
 	# GET /todos
   def index
-  	@songs = paginate @current_user.songs, per_page: 5
+  	@songs = paginate Song.unscoped, per_page: 5
   end
 
   # POST /songs
@@ -38,6 +38,10 @@ class SongsController < ApplicationController
   def destroy
     @song.destroy!
     head :no_content
+  end
+
+  def my_songs
+    @songs = paginate current_user.songs, per_page: 5
   end
 
   private

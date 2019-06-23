@@ -3,7 +3,9 @@ Rails.application.routes.draw do
     resources :albums
   end
 
-  resources :songs do 
+  get 'songs/my_songs', to: 'songs#my_songs'
+
+  resources :songs do
   end
   
   post 'auth/login', to: 'authentication#authenticate'
