@@ -1,10 +1,10 @@
 class AlbumsController < ApplicationController
-    before_action :set_artist
+    before_action :set_artist, only: [:index, :create, :show, :update, :destroy]
     before_action :set_artist_album, only: [:show, :update, :destroy]
 
     # GET /artists/:artist_id/albums
     def index
-        @albums = paginate Album.unscoped, per_page: 5
+        @albums = paginate @artist.albums, per_page: 5
     end
 
     # GET /artists/:artist_id/albums/:id
@@ -30,6 +30,10 @@ class AlbumsController < ApplicationController
     def destroy
         @album.destroy!
         head :no_content
+    end
+
+    def all_albums
+        @albums = paginate Album.unscoped, per_page: 5
     end
 
     private

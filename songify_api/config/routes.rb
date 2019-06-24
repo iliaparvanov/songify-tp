@@ -3,6 +3,8 @@ Rails.application.routes.draw do
     resources :albums
   end
 
+  get 'albums', to: 'albums#all_albums'
+
   get 'songs/my_songs', to: 'songs#my_songs'
 
   resources :songs do
