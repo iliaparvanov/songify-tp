@@ -38,6 +38,8 @@ public class Controller implements Initializable {
 
     @FXML
     public Pagination artistsPagination;
+    @FXML
+    public Pagination albumsPagination;
 
     @FXML
     public TableView<Artist> artistTableView;
@@ -139,15 +141,26 @@ public class Controller implements Initializable {
     }
 
     private void initializePagination() throws IOException {
-//        System.out.println(ArtistsController.maxPage());
-//        artistsPagination.setCurrentPageIndex(1);
-
-        artistsPagination.setPageFactory((Integer pageIndex) -> createPage(pageIndex));
+        artistsPagination.setPageFactory((Integer pageIndex) -> createArtistsPage(pageIndex));
         artistsPagination.setMaxPageIndicatorCount(ArtistsController.maxPage());
         artistsPagination.setPageCount(ArtistsController.maxPage());
+
+        albumsPagination.setPageFactory((Integer pageIndex) -> createAlbumsPage(pageIndex));
+        albumsPagination.setMaxPageIndicatorCount(AlbumsController.maxPage());
+        albumsPagination.setPageCount(AlbumsController.maxPage());
     }
 
-    public Node createPage(int pageIndex) {
+    public Node createAlbumsPage(int pageIndex) {
+        pageIndex += 1;
+        try {
+            albumTableView.setItems(FXCollections.observableList(AlbumsController.index(pageIndex)));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new BorderPane(albumTableView);
+    }
+
+    public Node createArtistsPage(int pageIndex) {
         pageIndex += 1;
         try {
             artistTableView.setItems(FXCollections.observableList(ArtistsController.index(pageIndex)));
@@ -357,7 +370,7 @@ public class Controller implements Initializable {
 //        artistTableView.setItems(FXCollections.observableList(ArtistsController.index(1)));
 //        System.out.println(ArtistsController.maxPage());
 
-        albumTableView.setItems(FXCollections.observableList(AlbumsController.index()));
+//        albumTableView.setItems(FXCollections.observableList(AlbumsController.index()));
 //        songTableView.setItems(FXCollections.observableList(SongsController.index()));
 //        genreTableView.setItems(FXCollections.observableList(GenresController.index()));
     }

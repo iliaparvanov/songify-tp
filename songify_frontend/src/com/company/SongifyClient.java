@@ -62,6 +62,9 @@ public interface SongifyClient {
     @GET("/artists/{id}/albums")
     Call<List<Album>> getAllAlbums(@Path("id") int artistId);
 
+    @GET("/albums")
+    Call<List<Album>> getAlbumsOnPage(@Query("page") int page);
+
     @POST("/artists/{id}/albums")
     @FormUrlEncoded
     Call<Album> createAlbum(@Path("id") int artistId,
@@ -73,4 +76,7 @@ public interface SongifyClient {
     @DELETE("artists/{id}/albums/{albumId}")
     Call<ResponseBody> deleteAlbum(@Path("id") int id,
                                    @Path("albumId") int albumId);
+    @GET("/songs/my_songs")
+    Call<List<Song>> getSongsForUser(@Query("page") int page);
+
 }

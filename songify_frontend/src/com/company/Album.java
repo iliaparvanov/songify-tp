@@ -31,6 +31,7 @@ public class Album {
 
     private String title;
     private Artist artist;
+    private int artist_id;
 
     public Album(int id, String title, Artist artist) {
         this.id = id;
@@ -41,5 +42,9 @@ public class Album {
     @Override
     public String toString() {
         return  getTitle() + ", by " + artist.getName();
+    }
+
+    public int getArtist_id() {
+        return artist_id;
     }
 }

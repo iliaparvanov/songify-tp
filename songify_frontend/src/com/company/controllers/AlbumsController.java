@@ -1,13 +1,15 @@
 package com.company.controllers;
 
 import com.company.*;
+import okhttp3.Headers;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.Response;
 
 import java.io.IOException;
-import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class AlbumsController {
     private static SongifyClient client = new ClientConnection().getClient();
@@ -30,11 +32,40 @@ public class AlbumsController {
         return currentAlbums;
     }
 
+    public static List<Album> index(int page) throws NetworkFailureException, IOException {
+        Call<List<Album>> call =
+                client.getAlbumsOnPage(page);
+
+        currentAlbums = call.execute().body();
+        if (currentAlbums == null) {
+            System.out.println("NULL!!!!1");
+        } else {
+
+            for (Album a : currentAlbums) {
+                Artist artist = ArtistsController.find(a.getArtist_id());
+                a.setArtist(artist);
+                System.out.println(a.toString());
+            }
+        }
+        return currentAlbums;
+    }
+
+    public static int maxPage() throws IOException {
+        Call<List<Album>> call = client.getAlbumsOnPage(1);
+        Response<List<Album>> res = call.execute();
+        Headers headers = res.headers();
+        Map<String, List<String>> headersMap = headers.toMultimap();
+        for (Map.Entry<String, List<String>> entry : headersMap.entrySet()) {
+            if (entry.getKey().equals("x-total-pages")) {
+                return Integer.parseInt(entry.getValue().get(0));
+            }
+        }
+        return -1;
+    }
 
     public static Album create(String title, Artist artist) throws IOException {
         Call<Album> call = client.createAlbum(artist.getId(), title);
         currentAlbum = call.execute().body();
-//        System.out.println(currentAlbum.getTitle());
         currentAlbum.setArtist(artist);
         return currentAlbum;
     }
