@@ -20,26 +20,6 @@ public interface SongifyClient {
                                 @Field("password_confirmation") String password_confirmation,
                                 @Field("key_for_signup") String key_for_signup);
 
-    @GET("/songs")
-    Call<List<Song>> getAllSongs();
-
-    @GET("/songs/{id}")
-    Call<Song> getSong(@Path("id") int id);
-
-    @POST("/songs")
-    @FormUrlEncoded
-    Call<Song> createSong(@Field("title") String title,
-                          @Field("length") String length,
-                          @Field("genre") String genre,
-                          @Field("album") String album,
-                          @Field("artist") String artist);
-
-    @PUT("/songs/{id}")
-    Call<ResponseBody> updateSong(@Path("id") int id, @Body Song song);
-
-    @DELETE("/songs/{id}")
-    Call<ResponseBody> deleteSong(@Path("id") int id);
-
     @GET("/artists")
     Call<List<Artist>> getAllArtists();
 
@@ -62,6 +42,10 @@ public interface SongifyClient {
     @GET("/artists/{id}/albums")
     Call<List<Album>> getAllAlbums(@Path("id") int artistId);
 
+    @GET("/artists/{id}/albums/{albumId}")
+    Call<Album> getAlbum(@Path("id") int artistId,
+                         @Path("albumId") int albumId);
+
     @GET("/albums")
     Call<List<Album>> getAlbumsOnPage(@Query("page") int page);
 
@@ -79,4 +63,29 @@ public interface SongifyClient {
     @GET("/songs/my_songs")
     Call<List<Song>> getSongsForUser(@Query("page") int page);
 
+    @DELETE("/songs/{id}")
+    Call<ResponseBody> deleteSong(@Path("id") int id);
+
+    @PUT("/songs/{id}")
+    @FormUrlEncoded
+    Call<ResponseBody> updateSong(@Path("id") int id,
+                                  @Field("title") String title,
+                                  @Field("length") String length,
+                                  @Field("genre") String genre,
+                                  @Field("album") String album,
+                                  @Field("artist") String artist);
+
+    @GET("/songs")
+    Call<List<Song>> getAllSongs();
+
+    @GET("/songs/{id}")
+    Call<Song> getSong(@Path("id") int id);
+
+    @POST("/songs")
+    @FormUrlEncoded
+    Call<Song> createSong(@Field("title") String title,
+                          @Field("length") String length,
+                          @Field("genre") String genre,
+                          @Field("album") String album,
+                          @Field("artist") String artist);
 }

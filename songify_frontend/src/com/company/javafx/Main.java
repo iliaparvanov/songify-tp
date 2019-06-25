@@ -13,7 +13,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("authentication.fxml"));
         primaryStage.setTitle("Songify");
-        primaryStage.setScene(new Scene(root, 900, 700));
+        primaryStage.setScene(new Scene(root, 1300, 1000));
         primaryStage.show();
     }
 

@@ -44,7 +44,7 @@ public class AlbumsController {
             for (Album a : currentAlbums) {
                 Artist artist = ArtistsController.find(a.getArtist_id());
                 a.setArtist(artist);
-                System.out.println(a.toString());
+//                System.out.println(a.toString());
             }
         }
         return currentAlbums;
@@ -74,7 +74,22 @@ public class AlbumsController {
         Call<ResponseBody> call = client.deleteAlbum(album.getArtist().getId(), album.getId());
         call.execute().body();
     }
-/*
+
+    public static void update(Album album) throws IOException {
+        Call<ResponseBody> call = client.updateAlbum(album.getArtist().getId(), album.getId(), album);
+        call.execute().body();
+    }
+
+    public static Album find(Artist artist, int albumId) throws IOException {
+        Call<Album> call = client.getAlbum(artist.getId(), albumId);
+        System.out.println("artist id: " + artist.getId());
+        currentAlbum = call.execute().body();
+//        System.out.println("artist id: " + currentAlbum.getArtist_id());
+        currentAlbum.setArtist(ArtistsController.find(currentAlbum.getArtist_id()));
+        return currentAlbum;
+    }
+
+    /*
     public static void delete(Artist artist) throws SQLException {
         AlbumsController.find(artist).stream().forEach((a) -> {
             try {
@@ -89,21 +104,6 @@ public class AlbumsController {
             System.out.println("Album(s) deleted succesfully");
         }
     }
-
-    public static void update(Album album) throws SQLException{
-        PreparedStatement statement = connection.getConn()
-                .prepareStatement("UPDATE Album SET title=?, artistId=? WHERE Id=?");
-
-        statement.setString(1, album.getTitle());
-        statement.setInt(2, album.getArtist().id);
-        statement.setInt(3, album.id);
-
-        int rowsUpdated = statement.executeUpdate();
-        if(rowsUpdated > 0){
-            System.out.println("Album updated succesfully");
-        }
-    }
-
 
 
 

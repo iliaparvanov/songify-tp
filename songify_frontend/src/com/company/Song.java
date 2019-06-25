@@ -12,13 +12,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Song {
-    public int id;
+    private int id;
     private String title;
     private String releaseDate;
     private String length;
     private Album album;
     private Artist artist;
     private String genre;
+    private int artist_id;
+    private int album_id;
 
     public Song(int id, String title, String releaseDate, String length, Album album, Artist artist, String genre) throws SQLException {
         this.id = id;
@@ -70,7 +72,7 @@ public class Song {
         this.album = album;
     }
 
-    public void setArtists(List<Artist> artists) {
+    public void setArtist(Artist artist) {
         this.artist = artist;
     }
 
@@ -83,8 +85,21 @@ public class Song {
         String aStrings = "";
         aStrings += artist.toString();
         String albumString = "";
-        if (album != null)
+        if (album != null) {
             albumString = album.toString();
+        }
         return  title + ", by " + aStrings + " with length " + this.length + " from album " + albumString;
+    }
+
+    public int getArtist_id() {
+        return artist_id;
+    }
+
+    public int getAlbum_id() {
+        return album_id;
+    }
+
+    public int getId() {
+        return id;
     }
 }

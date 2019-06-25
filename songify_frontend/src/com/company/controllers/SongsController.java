@@ -1,7 +1,10 @@
 package com.company.controllers;
 
 import com.company.*;
+import okhttp3.Headers;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.Response;
 
 import java.io.IOException;
 import java.sql.PreparedStatement;
@@ -10,6 +13,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class SongsController {
 
@@ -30,115 +34,57 @@ public class SongsController {
 
         return currentSongs;
     }
-/*
-    public static Song create(String title, String releaseDate, String length, Album album, List<Artist> artists, Genre genre) throws SQLException {
-        //This should happen in a transaction
-        connection.getConn().setAutoCommit(false);
-        Song toReturn = new Song(-1, title, releaseDate, length, album, artists, genre);
-        try {
 
+    public static List<Song> index(int pageIndex) throws IOException {
+        Call<List<Song>> call =
+                client.getSongsForUser(pageIndex);
 
-            String sql = "INSERT INTO Song(title, releaseDate, length, albumId, genreId) VALUES (?, ?, ?, ?, ?)";
+        currentSongs = call.execute().body();
 
-            PreparedStatement statement = connection.getConn().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            statement.setString(1, title);
-            statement.setString(2, releaseDate);
-            statement.setString(3, length);
-            statement.setInt(4, album.id);
-            statement.setInt(5, genre.id);
-
-            int rowsInserted = statement.executeUpdate();
-            if (rowsInserted > 0) {
-                System.out.println("A new song was inserted successfully!");
-            }
-
-            int songId = -1;
-            ResultSet rs = statement.getGeneratedKeys();
-            if (rs.next()) {
-                songId = rs.getInt(1);
-            }
-
-            for (Artist a : artists) {
-                sql = "INSERT INTO ArtistSong(ArtistId, SongId) VALUES (?, ?)";
-                statement = connection.getConn().prepareStatement(sql);
-                statement.setInt(1, a.id);
-                statement.setInt(2, songId);
-
-                rowsInserted = statement.executeUpdate();
-                if (rowsInserted > 0) {
-                    System.out.println("The new song's artist(s) was added successfully!");
-                }
-            }
-            connection.getConn().commit();
-
-            toReturn = new Song(songId, title, releaseDate, length, album, artists, genre);
-        } catch (Exception e) {
-            connection.getConn().rollback();
-            e.printStackTrace();
-        } finally {
-            connection.getConn().setAutoCommit(true);
+        for (Song s : currentSongs) {
+            Artist songArtist = ArtistsController.find(s.getArtist_id());
+            s.setArtist(songArtist);
+            s.setAlbum(AlbumsController.find(songArtist, s.getAlbum_id()));
         }
-        return toReturn;
+
+        return currentSongs;
     }
 
-    public static void update(Song song) throws SQLException {
-        connection.getConn().setAutoCommit(false);
-        try {
-            String sql = "UPDATE Song SET title=?, releaseDate=?, length=?, albumId=?, genreId=? WHERE Id=?";
-
-            PreparedStatement statement = connection.getConn().prepareStatement(sql);
-            statement.setString(1, song.getTitle());
-            statement.setString(2, song.getReleaseDate());
-            statement.setString(3, song.getLength());
-            statement.setInt(4, song.getAlbum().id);
-            statement.setInt(5, song.getGenre().id);
-            statement.setInt(6, song.id);
-
-            System.out.println(song.id);
-
-            int rowsUpdated = statement.executeUpdate();
-            if (rowsUpdated > 0) {
-                System.out.println("An existing song was updated successfully!");
+    public static int maxPage() throws IOException {
+        Call<List<Song>> call = client.getSongsForUser(1);
+        Response<List<Song>> res = call.execute();
+        Headers headers = res.headers();
+        Map<String, List<String>> headersMap = headers.toMultimap();
+        for (Map.Entry<String, List<String>> entry : headersMap.entrySet()) {
+            if (entry.getKey().equals("x-total-pages")) {
+                return Integer.parseInt(entry.getValue().get(0));
             }
-
-
-            statement = connection.getConn().prepareStatement("DELETE FROM ArtistSong WHERE SongId = ?");
-            statement.setInt(1, song.id);
-
-            statement.executeUpdate();
-
-            for (Artist a : song.getArtists()) {
-                sql = "INSERT INTO ArtistSong(ArtistId, SongId) VALUES (?, ?)";
-                statement = connection.getConn().prepareStatement(sql);
-                statement.setInt(1, a.id);
-                statement.setInt(2, song.id);
-
-                int rowsInserted = statement.executeUpdate();
-                if (rowsInserted > 0) {
-                    System.out.println("The new song's artist(s) was added successfully!");
-                }
-            }
-        } catch(Exception e) {
-            connection.getConn().rollback();
-            e.printStackTrace();
-        } finally {
-            connection.getConn().setAutoCommit(true);
         }
+        return -1;
+    }
+
+    public static void delete(int id) throws SQLException, IOException {
+        Call<ResponseBody> call = client.deleteSong(id);
+        call.execute().body();
 
     }
 
-
-    public static void delete(int id) throws SQLException {
-        String sql = "DELETE FROM Song WHERE id=?";
-
-        PreparedStatement statement = connection.getConn().prepareStatement(sql);
-        statement.setInt(1, id);
-
-        int rowsDeleted = statement.executeUpdate();
-        if (rowsDeleted > 0) {
-            System.out.println("A song was deleted successfully!");
-        }
+    public static Song create(String title, String length, Album album, Artist artist, String genre) throws SQLException, IOException {
+        Call<Song> call = client.createSong(title, length, genre, album.getTitle(), artist.getName());
+        Song song = call.execute().body();
+        song.setAlbum(album);
+        song.setArtist(artist);
+        return song;
     }
+
+
+    public static void update(Song song) throws SQLException, IOException {
+        Call<ResponseBody> call = client.updateSong(song.getId(), song.getTitle(), song.getLength(), song.getGenre(), song.getAlbum().getTitle(), song.getArtist().getName());
+        ResponseBody responseBody = call.execute().body();
+    }
+    /*
+
+
 
     public static void delete(Album album) throws SQLException {
         String sql = "DELETE FROM Song WHERE albumId=?";
