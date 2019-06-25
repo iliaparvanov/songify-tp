@@ -13,6 +13,7 @@ class SongsController < ApplicationController
   	@song = Song.new(title: params["title"], length: params["length"], genre: params["genre"], album: album)
     @song.artist = artist
     @song.save!
+    artist.songs << @song
     @current_user.songs << @song
     response.set_header("Location", song_url(@song))
     json_response(@song, :created)

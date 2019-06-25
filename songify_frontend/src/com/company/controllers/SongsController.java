@@ -44,7 +44,10 @@ public class SongsController {
         for (Song s : currentSongs) {
             System.out.println(s.getArtist_id());
             Artist songArtist = ArtistsController.find(s.getArtist_id());
-            s.setArtist(songArtist);
+
+            System.out.println("album id " + s.getAlbum_id() + "artist id " + s.getArtist_id());
+            if(s.getArtist_id() != 0)
+                s.setArtist(songArtist);
             if(s.getAlbum_id() != 0)
                 s.setAlbum(AlbumsController.find(songArtist, s.getAlbum_id()));
         }
