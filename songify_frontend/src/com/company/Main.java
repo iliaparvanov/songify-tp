@@ -1,16 +1,5 @@
 package com.company;
 
-import com.company.controllers.AlbumsController;
-import com.company.controllers.ArtistsController;
-import com.company.controllers.GenresController;
-import com.company.controllers.SongsController;
-import com.company.db_builder.TableInitializer;
-
-import java.sql.SQLException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
-
 public class Main {
 /*
     public static <E> int options(List<E> options) {

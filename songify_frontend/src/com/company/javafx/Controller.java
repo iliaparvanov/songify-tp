@@ -4,9 +4,7 @@ package com.company.javafx;
 import com.company.*;
 import com.company.controllers.AlbumsController;
 import com.company.controllers.ArtistsController;
-import com.company.controllers.GenresController;
 import com.company.controllers.SongsController;
-import com.company.db_builder.TableInitializer;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,17 +17,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.Arrays;
-import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -212,8 +206,7 @@ public class Controller implements Initializable {
         selectedAlbum.setTitle(editted.getNewValue().toString());
         AlbumsController.update(selectedAlbum);
         initializePagination();
-//        fetchAllFromDB();
-    }
+     }
 
     public void changeSongTitleCellEvent(TableColumn.CellEditEvent editted) throws SQLException, IOException {
         Song selectedSong = songTableView.getSelectionModel().getSelectedItem();
@@ -236,6 +229,9 @@ public class Controller implements Initializable {
             SongsController.update(selectedSong);
             initializePagination();
         }
+        else {
+            JavaFxAlert.showAlert("Please enter length and choose song");
+        }
     }
 
 
@@ -247,6 +243,9 @@ public class Controller implements Initializable {
             }
             initializePagination();
         }
+        else {
+            JavaFxAlert.showAlert("Please enter genre and choose song");
+        }
     }
 
     public void changeSongAlbum() throws SQLException, IOException {
@@ -257,6 +256,8 @@ public class Controller implements Initializable {
                 SongsController.update(s);
             }
             initializePagination();
+        } else {
+            JavaFxAlert.showAlert("Please choose album and song");
         }
     }
 
@@ -269,6 +270,8 @@ public class Controller implements Initializable {
             }
             initializePagination();
             System.out.println("Changed artist");
+        } else {
+            JavaFxAlert.showAlert("Please choose artist and song");
         }
     }
 
@@ -292,6 +295,8 @@ public class Controller implements Initializable {
             artistTableView.getItems().add(artist);
 
             initializePagination();
+        } else {
+            JavaFxAlert.showAlert("Please enter artist name");
         }
     }
 
@@ -329,6 +334,8 @@ public class Controller implements Initializable {
             songTableView.getItems().add(song);
 
             initializePagination();
+        } else {
+            JavaFxAlert.showAlert("Please choose artist and album and type song's name, genre and length");
         }
 
     }
@@ -340,6 +347,8 @@ public class Controller implements Initializable {
 
             initializePagination();
 
+        } else {
+            JavaFxAlert.showAlert("Please type album's name and choose artist");
         }
     }
 

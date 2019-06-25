@@ -114,46 +114,10 @@ public class ArtistsController {
         Call<ResponseBody> call = client.deleteArtist(id);
 
         ResponseBody body =  call.execute().body();
-//        call.enqueue(new Callback<>() {
-//            @Override
-//            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-//            }
-//
-//            @Override
-//            public void onFailure(Call<ResponseBody> call, Throwable t) {
-//                throw new NetworkFailureException();
-//            }
-//        });
     }
 
     public static Artist find(int id) throws IOException {
         Call<Artist> call = client.getArtist(id);
         return call.execute().body();
     }
-    /*
-
-
-    public static List<Artist> find(String name) throws SQLException {
-        PreparedStatement statement = connection.getConn().prepareStatement("SELECT * FROM Artist WHERE Name LIKE ?");
-        statement.setString(1, "%" + name + "%");
-
-        ResultSet result = statement.executeQuery();
-        List<Artist> artists = new ArrayList<>();
-        while (result.next()) {
-            artists.add(new Artist(result.getInt("Id"), result.getString("Name")));
-        }
-        return artists;
-    }
-
-    public static List<Artist> findBySongId(int songId) throws SQLException {
-        List<Artist> artists = new ArrayList<>();
-        PreparedStatement preparedStatement = connection.getConn().prepareStatement("SELECT * FROM ArtistSong WHERE SongId = ?");
-        preparedStatement.setInt(1, songId);
-        ResultSet joinTableResult = preparedStatement.executeQuery();
-        while (joinTableResult.next()) {
-            artists.add(ArtistsController.find(joinTableResult.getInt("ArtistId")));
-        }
-        return artists;
-    }
-*/
 }

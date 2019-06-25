@@ -44,7 +44,6 @@ public class AlbumsController {
             for (Album a : currentAlbums) {
                 Artist artist = ArtistsController.find(a.getArtist_id());
                 a.setArtist(artist);
-//                System.out.println(a.toString());
             }
         }
         return currentAlbums;
@@ -82,66 +81,9 @@ public class AlbumsController {
 
     public static Album find(Artist artist, int albumId) throws IOException {
         Call<Album> call = client.getAlbum(artist.getId(), albumId);
-//        System.out.println("artist id: " + artist.getId());
         currentAlbum = call.execute().body();
-//        System.out.println("artist id: " + currentAlbum.getArtist_id());
+
         currentAlbum.setArtist(ArtistsController.find(artist.getId()));
         return currentAlbum;
     }
-
-    /*
-    public static void delete(Artist artist) throws SQLException {
-        AlbumsController.find(artist).stream().forEach((a) -> {
-            try {
-                SongsController.delete(a);
-            } catch(SQLException e) {
-                e.printStackTrace();
-            }});
-        PreparedStatement statement = connection.getConn().prepareStatement("DELETE FROM Album WHERE ArtistID= ?");
-        statement.setString(1, String.valueOf(artist.id));
-        int rowsDeleted = statement.executeUpdate();
-        if(rowsDeleted > 0){
-            System.out.println("Album(s) deleted succesfully");
-        }
-    }
-
-
-
-    public static List<Album> find(Artist artist) throws SQLException{
-        PreparedStatement statement = connection.getConn().prepareStatement("SELECT * FROM Album WHERE ArtistID = ?");
-        statement.setInt(1, artist.id);
-
-        ResultSet result = statement.executeQuery();
-        List<Album> albums = new ArrayList<>();
-        while (result.next()) {
-            albums.add(new Album(result.getInt("Id"), result.getString("Title"), ArtistsController.find(result.getInt("ArtistID"))));
-        }
-        return albums;
-    }
-
-    public static List<Album> find(String title) throws SQLException{
-        PreparedStatement statement = connection.getConn().prepareStatement("SELECT * FROM Album WHERE Title LIKE ?");
-        statement.setString(1, "%" + title  + "%");
-
-        ResultSet result = statement.executeQuery();
-        List<Album> albums = new ArrayList<>();
-        while (result.next()) {
-            albums.add(new Album(result.getInt("Id"), result.getString("Title"), ArtistsController.find(result.getInt("ArtistID"))));
-        }
-        return albums;
-    }
-
-    public static Album findFirst(String title, Artist artist) throws SQLException {
-        PreparedStatement statement = connection.getConn().prepareStatement("SELECT * FROM Album WHERE Title = ? AND ArtistID = ?");
-        statement.setString(1, title);
-        statement.setInt(2, artist.id);
-
-        ResultSet result = statement.executeQuery();
-        List<Album> albums = new ArrayList<>();
-        while (result.next()) {
-            albums.add(new Album(result.getInt("Id"), result.getString("Title"), ArtistsController.find(result.getInt("ArtistID"))));
-        }
-        return albums.get(0);
-    }
-    */
 }
