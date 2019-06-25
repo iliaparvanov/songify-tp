@@ -82,10 +82,10 @@ public class AlbumsController {
 
     public static Album find(Artist artist, int albumId) throws IOException {
         Call<Album> call = client.getAlbum(artist.getId(), albumId);
-        System.out.println("artist id: " + artist.getId());
+//        System.out.println("artist id: " + artist.getId());
         currentAlbum = call.execute().body();
 //        System.out.println("artist id: " + currentAlbum.getArtist_id());
-        currentAlbum.setArtist(ArtistsController.find(currentAlbum.getArtist_id()));
+        currentAlbum.setArtist(ArtistsController.find(artist.getId()));
         return currentAlbum;
     }
 

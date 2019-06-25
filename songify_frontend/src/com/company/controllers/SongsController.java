@@ -42,6 +42,7 @@ public class SongsController {
         currentSongs = call.execute().body();
 
         for (Song s : currentSongs) {
+            System.out.println(s.getArtist_id());
             Artist songArtist = ArtistsController.find(s.getArtist_id());
             s.setArtist(songArtist);
             s.setAlbum(AlbumsController.find(songArtist, s.getAlbum_id()));
@@ -79,7 +80,8 @@ public class SongsController {
 
 
     public static void update(Song song) throws SQLException, IOException {
-        Call<ResponseBody> call = client.updateSong(song.getId(), song.getTitle(), song.getLength(), song.getGenre(), song.getAlbum().getTitle(), song.getArtist().getName());
+        Call<ResponseBody> call = client.updateSong(song.getId(), song.getTitle(), song.getLength(), song.getGenre(),
+                song.getAlbum().getTitle(), song.getAlbum().getArtist().getName());
         ResponseBody responseBody = call.execute().body();
     }
     /*
