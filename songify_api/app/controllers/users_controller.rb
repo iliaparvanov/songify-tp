@@ -10,6 +10,7 @@ class UsersController < ApplicationController
         json_response(response, :created)
       else
         response = { message: "User with that email exists"}
+        raise ExceptionHandler::UserExists
         json_response(response)
       end
     else

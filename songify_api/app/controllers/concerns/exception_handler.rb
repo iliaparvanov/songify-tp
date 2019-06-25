@@ -5,13 +5,15 @@ module ExceptionHandler
   class AuthenticationError < StandardError; end
   class MissingToken < StandardError; end
   class InvalidToken < StandardError; end
+  class UserExists < StandardError; end
 
   included do
     # Define custom handlers
     rescue_from ActiveRecord::RecordInvalid, with: :four_twenty_two
     rescue_from ExceptionHandler::AuthenticationError, with: :unauthorized_request
-    rescue_from ExceptionHandler::MissingToken, with: :missing_token
+    rescue_from ExceptionHandler::MissingToken, with: :invalid_token
     rescue_from ExceptionHandler::InvalidToken, with: :invalid_token
+    rescue_from ExceptionHandler::UserExists, with: :bad_request
 
     rescue_from ActiveRecord::RecordNotFound, with: :not_found
   end
@@ -22,8 +24,8 @@ module ExceptionHandler
     json_response({ message: e.message }, 422)
   end
 
-  def missing_token(e)
-    json_response({message: e.message}, 401)
+  def bad_request(e)
+    json_response({message: "User with that email exists"}, 409)
   end
 
   def invalid_token(e)
