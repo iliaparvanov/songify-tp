@@ -44,13 +44,12 @@ public class AuthenticationController implements Initializable {
         if (!signUpEmailTextField.getText().equals("")
                 && !signUpPasswordField.getText().equals("")
                 && !signUpPasswordConfirmationField.getText().equals("")
-                && !signUpNameTextField.getText().equals("")
-                && !secretPasswordField.getText().equals("")) {
+                && !signUpNameTextField.getText().equals("")) {
             Call<Authentication> call = client.signup(signUpEmailTextField.getText(),
                     signUpNameTextField.getText(),
                     signUpPasswordField.getText(),
                     signUpPasswordConfirmationField.getText(),
-                    secretPasswordField.getText());
+                    "secret_key_that_no_one_knows");
             Response<Authentication> res = call.execute();
             if (res.isSuccessful()) {
                 Authentication auth = res.body();

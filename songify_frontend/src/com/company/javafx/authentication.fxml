@@ -24,7 +24,6 @@
                   <TextField fx:id="signUpEmailTextField" promptText="Email" />
                   <PasswordField fx:id="signUpPasswordField" promptText="Your password" />
                   <PasswordField fx:id="signUpPasswordConfirmationField" promptText="Confirm password" />
-                  <PasswordField fx:id="secretPasswordField" promptText="Secret API password" />
                   <Button mnemonicParsing="false" onAction="#signUpButtonPressed" text="Sign up" />
                </children>
             </VBox>

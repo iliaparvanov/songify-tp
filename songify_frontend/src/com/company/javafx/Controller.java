@@ -123,7 +123,7 @@ public class Controller implements Initializable {
         songGenreColumn.setCellValueFactory(new PropertyValueFactory<Song, String>("genre"));
 
         songLengthMinutesChoiceBox.setItems(FXCollections.observableList(IntStream.rangeClosed(1, 9).boxed().collect(Collectors.toList())));
-        songLengthTensOfSecondsChoiceBox.setItems(FXCollections.observableList(IntStream.rangeClosed(0, 9).boxed().collect(Collectors.toList())));
+        songLengthTensOfSecondsChoiceBox.setItems(FXCollections.observableList(IntStream.rangeClosed(0, 6   ).boxed().collect(Collectors.toList())));
         songLengthSecondsChoiceBox.setItems(FXCollections.observableList(IntStream.rangeClosed(0, 9).boxed().collect(Collectors.toList())));
 
         songTableView.setEditable(true);
@@ -223,50 +223,53 @@ public class Controller implements Initializable {
         initializePagination();
     }
 
-    public void changeSongLength() throws SQLException {
-//        Song selectedSong = songTableView.getSelectionModel().getSelectedItem();
-//        if (songLengthMinutesChoiceBox.getValue() != null
-//                && songLengthTensOfSecondsChoiceBox.getValue() != null
-//                && songLengthSecondsChoiceBox.getValue() != null) {
-//            String length = songLengthMinutesChoiceBox.getValue().toString() +
-//                    ":" +
-//                    songLengthTensOfSecondsChoiceBox.getValue().toString() +
-//                    songLengthSecondsChoiceBox.getValue().toString();
-//            selectedSong.setLength(length);
-//            SongsController.update(selectedSong);
-//            fetchAllFromDB();
-//        }
+    public void changeSongLength() throws SQLException, IOException {
+        Song selectedSong = songTableView.getSelectionModel().getSelectedItem();
+        if (songLengthMinutesChoiceBox.getValue() != null
+                && songLengthTensOfSecondsChoiceBox.getValue() != null
+                && songLengthSecondsChoiceBox.getValue() != null) {
+            String length = songLengthMinutesChoiceBox.getValue().toString() +
+                    ":" +
+                    songLengthTensOfSecondsChoiceBox.getValue().toString() +
+                    songLengthSecondsChoiceBox.getValue().toString();
+            selectedSong.setLength(length);
+            SongsController.update(selectedSong);
+            initializePagination();
+        }
     }
 
 
-    public void changeSongGenre() throws SQLException {
-//        if (songTableView.getSelectionModel().getSelectedItems().size() > 0 && genreTableView.getSelectionModel().getSelectedItems().size() == 1) {
-//            for (Song s : songTableView.getSelectionModel().getSelectedItems()) {
-//                s.setGenre(genreTableView.getSelectionModel().getSelectedItem());
-//                SongsController.update(s);
-//            }
-//            fetchAllFromDB();
-//        }
-    }
-
-    public void changeSongAlbum() throws SQLException, IOException {
-        if (songTableView.getSelectionModel().getSelectedItems().size() > 0 && albumTableView.getSelectionModel().getSelectedItems().size() == 1) {
+    public void changeSongGenre() throws SQLException, IOException {
+        if (songTableView.getSelectionModel().getSelectedItems().size() > 0 && songGenreTextField.getText().toString() != "") {
             for (Song s : songTableView.getSelectionModel().getSelectedItems()) {
-                s.setAlbum(albumTableView.getSelectionModel().getSelectedItem());
+                s.setGenre(songGenreTextField.getText().toString());
                 SongsController.update(s);
             }
             initializePagination();
         }
     }
 
-    public void changeSongArtists() throws SQLException {
-//        if (songTableView.getSelectionModel().getSelectedItems().size() > 0 && artistTableView.getSelectionModel().getSelectedItems().size() > 0) {
-//            for (Song s : songTableView.getSelectionModel().getSelectedItems()) {
-//                s.setArtists(artistTableView.getSelectionModel().getSelectedItems());
-//                SongsController.update(s);
-//            }
-//            fetchAllFromDB();
-//        }
+    public void changeSongAlbum() throws SQLException, IOException {
+        if (songTableView.getSelectionModel().getSelectedItems().size() > 0 && albumTableView.getSelectionModel().getSelectedItems().size() == 1) {
+            for (Song s : songTableView.getSelectionModel().getSelectedItems()) {
+                s.setAlbum(albumTableView.getSelectionModel().getSelectedItem());
+                s.setArtist(s.getAlbum().getArtist());
+                SongsController.update(s);
+            }
+            initializePagination();
+        }
+    }
+
+    public void changeSongArtist() throws IOException, SQLException {
+        if (songTableView.getSelectionModel().getSelectedItems().size() > 0 && artistTableView.getSelectionModel().getSelectedItems().size() > 0) {
+            for (Song s : songTableView.getSelectionModel().getSelectedItems()) {
+                s.setArtist(artistTableView.getSelectionModel().getSelectedItem());
+                s.setAlbum(null);
+                SongsController.update(s);
+            }
+            initializePagination();
+            System.out.println("Changed artist");
+        }
     }
 
     public void deleteArtists() throws SQLException, IOException {
@@ -287,6 +290,8 @@ public class Controller implements Initializable {
         if (!artistNameTextField.getText().toString().equals("")) {
             Artist artist = ArtistsController.create(artistNameTextField.getText().toString());
             artistTableView.getItems().add(artist);
+
+            initializePagination();
         }
     }
 
@@ -296,6 +301,7 @@ public class Controller implements Initializable {
         for (Song s : selectedSongs) {
             SongsController.delete(s.getId());
         }
+
         try {
             initializePagination();
         } catch (IOException e) {
@@ -321,6 +327,8 @@ public class Controller implements Initializable {
                     albumTableView.getSelectionModel().getSelectedItem().getArtist(),
                     songGenreTextField.getText());
             songTableView.getItems().add(song);
+
+            initializePagination();
         }
 
     }
@@ -329,6 +337,9 @@ public class Controller implements Initializable {
         if (!albumTitleTextField.getText().toString().equals("") && artistTableView.getSelectionModel().getSelectedItems().size() != 0) {
             Album album = AlbumsController.create(albumTitleTextField.getText().toString(), artistTableView.getSelectionModel().getSelectedItems().get(0));
             albumTableView.getItems().add(album);
+
+            initializePagination();
+
         }
     }
 
@@ -348,12 +359,11 @@ public class Controller implements Initializable {
 
 
     private void fetchAllFromDB() throws IOException {
-//        artistTableView.setItems(FXCollections.observableList(ArtistsController.index(1)));
-//        System.out.println(ArtistsController.maxPage());
+        artistTableView.setItems(FXCollections.observableList(ArtistsController.index(1)));
+        System.out.println(ArtistsController.maxPage());
 
-//        albumTableView.setItems(FXCollections.observableList(AlbumsController.index()));
-//        songTableView.setItems(FXCollections.observableList(SongsController.index()));
-//        genreTableView.setItems(FXCollections.observableList(GenresController.index()));
+        albumTableView.setItems(FXCollections.observableList(AlbumsController.index()));
+        songTableView.setItems(FXCollections.observableList(SongsController.index()));
     }
 
 

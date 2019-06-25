@@ -45,7 +45,8 @@ public class SongsController {
             System.out.println(s.getArtist_id());
             Artist songArtist = ArtistsController.find(s.getArtist_id());
             s.setArtist(songArtist);
-            s.setAlbum(AlbumsController.find(songArtist, s.getAlbum_id()));
+            if(s.getAlbum_id() != 0)
+                s.setAlbum(AlbumsController.find(songArtist, s.getAlbum_id()));
         }
 
         return currentSongs;
@@ -80,8 +81,15 @@ public class SongsController {
 
 
     public static void update(Song song) throws SQLException, IOException {
-        Call<ResponseBody> call = client.updateSong(song.getId(), song.getTitle(), song.getLength(), song.getGenre(),
-                song.getAlbum().getTitle(), song.getAlbum().getArtist().getName());
+        Call<ResponseBody> call;
+        if(song.getAlbum() == null) {
+            call = client.updateSong(song.getId(), song.getTitle(), song.getLength(), song.getGenre(),
+                    "", song.getArtist().getName());
+        }
+        else {
+            call = client.updateSong(song.getId(), song.getTitle(), song.getLength(), song.getGenre(),
+                    song.getAlbum().getTitle(), song.getAlbum().getArtist().getName());
+        }
         ResponseBody responseBody = call.execute().body();
     }
     /*
